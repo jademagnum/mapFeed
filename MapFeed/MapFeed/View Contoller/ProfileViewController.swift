@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         postsTableView.delegate = self
         postsTableView.dataSource = self
-  
+        
         guard let currentUser = UserController.shared.currentUser else { return }
         PostController.shared.fetchPosts(user: currentUser) {
             DispatchQueue.main.async {
@@ -48,7 +48,35 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailVCFromProfileVC" {
+            if let postDetailVC = segue.destination as? DetailViewController,
+                let indexPath = postsTableView.indexPathForSelectedRow?.row {
+                let post = PostController.shared.posts[indexPath]
+                postDetailVC.post = post
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

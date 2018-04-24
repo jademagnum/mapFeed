@@ -8,10 +8,21 @@
 
 import UIKit
 
+protocol CollectionViewCellDelegate: class {
+    func collectionViewCellWasTapped(post: Post)
+}
+
 class HomeFeedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet private weak var homeFeedCollectionView: UICollectionView!
     @IBOutlet weak var usernameLabel: UILabel!
+    
+    weak var delegate: CollectionViewCellDelegate?
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let post = user?.posts[indexPath.row] else { return }
+        delegate?.collectionViewCellWasTapped(post: post)
+    }
     
     var user: User? {
         didSet {
@@ -30,8 +41,10 @@ class HomeFeedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         usernameLabel.text = user.username
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PostController.shared.posts.count
+        guard let user = user else { return 0 }
+        return user.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

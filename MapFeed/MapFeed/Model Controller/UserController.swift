@@ -95,34 +95,44 @@ class UserController {
                 if let error = error { print(error.localizedDescription) }
                 guard let records = records else { completion(false); return}
                 let users = records.compactMap{User(cloudKitRecord: $0)}
-                self.users = users
-                completion(true)
-            })
-        
-            guard let user = self.currentUser else { return }
-            
-            self.fetchPostsFor(user: user, completion: { (success) in
-                if !success {
-                    print("Error fetching posts")
+//                guard let user = self.currentUser else { return }
+                let dispatchGroup = DispatchGroup()
+                for user in users {
+                    dispatchGroup.enter()
+                    self.fetchPostsFor(user: user, completion: { (success) in
+                        if !success {
+                            print("Error fetching posts")
+                        }
+                        dispatchGroup.leave()
+                    })
                 }
+                
+                dispatchGroup.notify(queue: .main, execute: {
+                    self.users = users
+                    completion(true)
+                })
             })
         }
     }
     
     func fetchPostsFor(user: User, completion: @escaping (_ success: Bool) -> Void) {
         guard let userRecordID = user.cloudKitRecordID else { completion(false); return }
+        
+        // The predicat of value Ture means everyting. (what we deleted) "expensive"
+        /// This predicat is only going to get the user refs
         let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
-        let predicate = NSPredicate(value: true)
+
+        let predicate = NSPredicate(format: "userRef == %@", userReference)
+        
         CloudKitManager.shared.fetchRecordsOf(type: Post.typeKey, predicate: predicate, database: publicDB) { (records, error) in
             if let error = error {
                 print("Error fetching posts for user \(#file) \(#function) \(error.localizedDescription)")
-                completion(false); return
+                completion(false); return   
             }
             guard let records = records else { completion(false); return }
-            let posts = records.compactMap({ Post(cloudKitRecord: $0 ) })
+            let posts = records.compactMap({ Post(cloudKitRecord: $0, user: user) })
             user.posts = posts
-//            let allPosts = PostController.shared.posts
-//            user.posts = allPosts
+            
             completion(true)
         }
     }

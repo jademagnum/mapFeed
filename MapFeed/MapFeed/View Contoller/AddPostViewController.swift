@@ -91,10 +91,6 @@ class AddPostViewController: ShiftableViewController {
 }
 
 
-extension AddPostViewController {
-    
-}
-
 
 
 

@@ -27,8 +27,9 @@ class Post {
     var likes: [Like]
     var timeStamp: Date
     var cloudKitRecordID: CKRecordID?
+    var userRef: CKReference?
     
-    init(user: User?, headline: String, url: String, gpsPin: CLLocation, comments: [Comment] = [], likes: [Like] = [], timeStamp: Date = Date()) {
+    init(user: User?, headline: String, url: String, gpsPin: CLLocation, comments: [Comment] = [], likes: [Like] = [], timeStamp: Date = Date(), userRef: CKReference?) {
         
         self.user = user
         self.headline = headline
@@ -37,13 +38,15 @@ class Post {
         self.comments = comments
         self.likes = likes
         self.timeStamp = timeStamp
+        self.userRef = userRef
     }
     
-    init?(cloudKitRecord: CKRecord) {
+    init?(cloudKitRecord: CKRecord, user: User?) {
         guard let url = cloudKitRecord[urlKey] as? String,
             let headline = cloudKitRecord[headlineKey] as? String,
             let timeStamp = cloudKitRecord.creationDate,
-            let gpsPin = cloudKitRecord[gpsPinKey] as? CLLocation else { return nil }
+            let gpsPin = cloudKitRecord[gpsPinKey] as? CLLocation,
+            let userRef = cloudKitRecord[userRefKey] as? CKReference else { return nil }
             
         self.url = url
         self.headline = headline
@@ -51,8 +54,9 @@ class Post {
         self.comments = []
         self.likes = []
         self.timeStamp = timeStamp
+        self.userRef = userRef
         self.cloudKitRecordID = cloudKitRecord.recordID
-        
+        self.user = user
     }
     
     var cloudKitRecord: CKRecord {
@@ -67,6 +71,8 @@ class Post {
             let userRecordID = user.cloudKitRecordID {
             let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
             record.setValue(userReference, forKey: userRefKey)
+        } else {
+            record.setValue(userRef, forKey: userRefKey)
         }
         return record
     }

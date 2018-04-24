@@ -166,39 +166,45 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="taj-tK-Z6n">
-                                                    <rect key="frame" x="0.0" y="33" width="375" height="202"/>
+                                                    <rect key="frame" x="0.0" y="38" width="375" height="197"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Pr4-vY-TX6">
-                                                        <size key="itemSize" width="158" height="196"/>
+                                                        <size key="itemSize" width="171" height="196"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="homeFeedCollectionViewCell" id="Z7d-pP-yUs" customClass="HomeFeedCollectionViewCell" customModule="MapFeed" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="3" width="158" height="196"/>
+                                                            <rect key="frame" x="0.0" y="0.5" width="171" height="196"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="158" height="196"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="171" height="196"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Timestamp" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruv-oC-PFe">
-                                                                        <rect key="frame" x="5" y="178" width="149" height="15"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTI-VH-qTc">
+                                                                        <rect key="frame" x="5" y="5" width="161" height="23"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Headline" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTI-VH-qTc">
-                                                                        <rect key="frame" x="5" y="20" width="149" height="24"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruv-oC-PFe">
+                                                                        <rect key="frame" x="5" y="33" width="161" height="12"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
                                                             </view>
+                                                            <constraints>
+                                                                <constraint firstItem="ruv-oC-PFe" firstAttribute="leading" secondItem="Z7d-pP-yUs" secondAttribute="leading" constant="5" id="7J5-gm-LEY"/>
+                                                                <constraint firstItem="NTI-VH-qTc" firstAttribute="leading" secondItem="Z7d-pP-yUs" secondAttribute="leading" constant="5" id="KNS-Xy-CBV"/>
+                                                                <constraint firstItem="NTI-VH-qTc" firstAttribute="top" secondItem="Z7d-pP-yUs" secondAttribute="top" constant="5" id="R0y-OV-Rte"/>
+                                                                <constraint firstAttribute="trailing" secondItem="NTI-VH-qTc" secondAttribute="trailing" constant="5" id="Wex-0E-OC8"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ruv-oC-PFe" secondAttribute="trailing" constant="5" id="bC0-0q-iFb"/>
+                                                                <constraint firstItem="ruv-oC-PFe" firstAttribute="top" secondItem="NTI-VH-qTc" secondAttribute="bottom" constant="5" id="lF9-3N-mnG"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="headlineLabel" destination="NTI-VH-qTc" id="yFj-S8-9gf"/>
                                                                 <outlet property="timestampLabel" destination="ruv-oC-PFe" id="kqD-VP-bdR"/>
@@ -206,15 +212,21 @@
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="USERNAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaU-FS-dxW">
-                                                    <rect key="frame" x="15" y="4" width="91" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USERNAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaU-FS-dxW">
+                                                    <rect key="frame" x="9.5" y="4" width="356.5" height="26"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yaU-FS-dxW" firstAttribute="centerX" secondItem="ozS-5C-Wnb" secondAttribute="centerX" id="A14-T0-IpV"/>
+                                                <constraint firstItem="yaU-FS-dxW" firstAttribute="top" secondItem="ozS-5C-Wnb" secondAttribute="top" constant="4" id="IDK-6a-Rdw"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="yaU-FS-dxW" firstAttribute="width" secondItem="KXp-mk-DSy" secondAttribute="width" multiplier="0.95" id="l6L-mW-XEc"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="homeFeedCollectionView" destination="taj-tK-Z6n" id="Z75-ZI-hyJ"/>
                                             <outlet property="usernameLabel" destination="yaU-FS-dxW" id="BWc-PR-KcE"/>
@@ -244,11 +256,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="feedTableView" destination="vHf-CK-aeF" id="mac-1z-f1A"/>
+                        <segue destination="VGC-Ha-ceO" kind="show" identifier="toDetailVCFromHomeFeedVC" id="Prq-LS-2LE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTG-6c-3Pr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="129"/>
+            <point key="canvasLocation" x="1293.5999999999999" y="128.18590704647679"/>
         </scene>
         <!--Profile-->
         <scene sceneID="w9R-jG-vR0">
@@ -298,6 +311,7 @@
                                         <connections>
                                             <outlet property="headlineLabel" destination="tKZ-c8-8FK" id="eGN-cM-VDY"/>
                                             <outlet property="timestampLabel" destination="nZu-CE-uqg" id="uB1-5W-U8b"/>
+                                            <segue destination="VGC-Ha-ceO" kind="show" identifier="toDetailVCFromProfileVC" id="pn0-Ea-cha"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -431,7 +445,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gYc-Hx-wNg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3924" y="896"/>
+            <point key="canvasLocation" x="2655" y="538"/>
         </scene>
         <!--Add Annotation View Controller-->
         <scene sceneID="zi6-Qe-xZm">
@@ -708,4 +722,7 @@
             <point key="canvasLocation" x="1294" y="-619"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="RLx-jZ-myu"/>
+    </inferredMetricsTieBreakers>
 </document>

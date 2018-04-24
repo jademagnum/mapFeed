@@ -22,8 +22,11 @@ class PostController {
     
     
     func createPostWith(user: User, headline: String, url: String, gps: CLLocation, timestamp: Date = Date(), completion: @escaping ((Post?) -> Void)){
+        guard let userID = user.cloudKitRecordID else { return }
         
-        let post = Post(user: user, headline: headline, url: url, gpsPin: gps)
+        let userRef = CKReference(recordID: userID, action: .deleteSelf)
+    
+        let post = Post(user: user, headline: headline, url: url, gpsPin: gps, userRef: userRef)
         posts.append(post)
         
         // CloudKit manager asks to save a ckRecord
@@ -52,7 +55,7 @@ class PostController {
         cloudKitManager.fetchRecordsOf(type: Post.typeKey, predicate: predicate, database: publicDB) { (records, error) in
             if let error = error { print(error.localizedDescription) }
             guard let records = records else { completion(); return }
-            let posts = records.compactMap({ Post(cloudKitRecord: $0 )})
+            let posts = records.compactMap({ Post(cloudKitRecord: $0, user: user )})
             self.posts = posts
             for post in posts {
                 post.user?.posts = posts
@@ -61,6 +64,8 @@ class PostController {
             completion()
         }
     }
+
+    // This shouldn't be used anymore
     
     func fetchAllPosts(post: Post, completion: @escaping () -> Void) {
         
@@ -72,7 +77,7 @@ class PostController {
                 completion(); return
             }
             guard let records = records else { completion(); return }
-            let posts = records.compactMap {Post(cloudKitRecord: $0)}
+            let posts = records.compactMap {Post(cloudKitRecord: $0, user: nil)}
             self.posts = posts
             
         }
