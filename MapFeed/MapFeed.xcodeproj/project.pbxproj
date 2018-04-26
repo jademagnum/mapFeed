@@ -21,6 +21,7 @@
 		2781C3842087B9F300CCA1AD /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781C3832087B9F300CCA1AD /* CloudKitManager.swift */; };
 		2781C3872087E4BC00CCA1AD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781C3862087E4BC00CCA1AD /* SignUpViewController.swift */; };
 		2781C38A2087ED2200CCA1AD /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781C3892087ED2200CCA1AD /* WelcomeViewController.swift */; };
+		278349EC2091441300807C49 /* MapPinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278349EB2091441300807C49 /* MapPinController.swift */; };
 		27C93FEA208949B300C19E9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C93FE9208949B300C19E9D /* MapKit.framework */; };
 		27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FEB20894B3500C19E9D /* MapViewController.swift */; };
 		27C93FEE2089511E00C19E9D /* PostAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FED2089511E00C19E9D /* PostAnnotation.swift */; };
@@ -30,6 +31,15 @@
 		27C93FF8208E7FBF00C19E9D /* HomeFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FF7208E7FBF00C19E9D /* HomeFeedViewController.swift */; };
 		27C93FFA208E81ED00C19E9D /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FF9208E81ED00C19E9D /* HomeFeedTableViewCell.swift */; };
 		27C93FFC208E822800C19E9D /* HomeFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FFB208E822800C19E9D /* HomeFeedCollectionViewCell.swift */; };
+		27C940182090F3FE00C19E9D /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C940132090F3FD00C19E9D /* Orientation.swift */; };
+		27C940192090F3FE00C19E9D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C940142090F3FD00C19E9D /* PreviewView.swift */; };
+		27C9401A2090F3FE00C19E9D /* SwiftyCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C940152090F3FD00C19E9D /* SwiftyCamViewController.swift */; };
+		27C9401B2090F3FE00C19E9D /* SwiftyCamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C940162090F3FE00C19E9D /* SwiftyCamButton.swift */; };
+		27C9401C2090F3FE00C19E9D /* SwiftyCamViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C940172090F3FE00C19E9D /* SwiftyCamViewControllerDelegate.swift */; };
+		27C9401E2090F43B00C19E9D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C9401D2090F43B00C19E9D /* CameraViewController.swift */; };
+		27C940202090FDC400C19E9D /* SwiftyRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C9401F2090FDC400C19E9D /* SwiftyRecordButton.swift */; };
+		27C940222091135B00C19E9D /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C940212091135A00C19E9D /* PhotoViewController.swift */; };
+		27C94024209113A900C19E9D /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C94023209113A900C19E9D /* VideoViewController.swift */; };
 		27F2380A2087F315001E379B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F238092087F315001E379B /* CloudKit.framework */; };
 		27F2380C2088EACB001E379B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2380B2088EACB001E379B /* DetailViewController.swift */; };
 		27F2380E20892BA0001E379B /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2380D20892BA0001E379B /* AddPostViewController.swift */; };
@@ -54,6 +64,7 @@
 		2781C3832087B9F300CCA1AD /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		2781C3862087E4BC00CCA1AD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2781C3892087ED2200CCA1AD /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		278349EB2091441300807C49 /* MapPinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinController.swift; sourceTree = "<group>"; };
 		27C93FE9208949B300C19E9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		27C93FEB20894B3500C19E9D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		27C93FED2089511E00C19E9D /* PostAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotation.swift; sourceTree = "<group>"; };
@@ -63,6 +74,15 @@
 		27C93FF7208E7FBF00C19E9D /* HomeFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedViewController.swift; sourceTree = "<group>"; };
 		27C93FF9208E81ED00C19E9D /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 		27C93FFB208E822800C19E9D /* HomeFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		27C940132090F3FD00C19E9D /* Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
+		27C940142090F3FD00C19E9D /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		27C940152090F3FD00C19E9D /* SwiftyCamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamViewController.swift; sourceTree = "<group>"; };
+		27C940162090F3FE00C19E9D /* SwiftyCamButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamButton.swift; sourceTree = "<group>"; };
+		27C940172090F3FE00C19E9D /* SwiftyCamViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamViewControllerDelegate.swift; sourceTree = "<group>"; };
+		27C9401D2090F43B00C19E9D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		27C9401F2090FDC400C19E9D /* SwiftyRecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyRecordButton.swift; sourceTree = "<group>"; };
+		27C940212091135A00C19E9D /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		27C94023209113A900C19E9D /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		27F238092087F315001E379B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		27F2380B2088EACB001E379B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		27F2380D20892BA0001E379B /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +179,7 @@
 			children = (
 				2781C37E2087AB3B00CCA1AD /* UserController.swift */,
 				2781C3812087AB5800CCA1AD /* PostController.swift */,
+				278349EB2091441300807C49 /* MapPinController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -186,8 +207,25 @@
 				27C93FF7208E7FBF00C19E9D /* HomeFeedViewController.swift */,
 				27C93FF9208E81ED00C19E9D /* HomeFeedTableViewCell.swift */,
 				27C93FFB208E822800C19E9D /* HomeFeedCollectionViewCell.swift */,
+				27C940052090EE4600C19E9D /* Camera */,
 			);
 			path = "View Contoller";
+			sourceTree = "<group>";
+		};
+		27C940052090EE4600C19E9D /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				27C9401D2090F43B00C19E9D /* CameraViewController.swift */,
+				27C9401F2090FDC400C19E9D /* SwiftyRecordButton.swift */,
+				27C94023209113A900C19E9D /* VideoViewController.swift */,
+				27C940212091135A00C19E9D /* PhotoViewController.swift */,
+				27C940132090F3FD00C19E9D /* Orientation.swift */,
+				27C940142090F3FD00C19E9D /* PreviewView.swift */,
+				27C940162090F3FE00C19E9D /* SwiftyCamButton.swift */,
+				27C940152090F3FD00C19E9D /* SwiftyCamViewController.swift */,
+				27C940172090F3FE00C19E9D /* SwiftyCamViewControllerDelegate.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,21 +317,31 @@
 				2781C3822087AB5800CCA1AD /* PostController.swift in Sources */,
 				2781C38A2087ED2200CCA1AD /* WelcomeViewController.swift in Sources */,
 				27F238102089378D001E379B /* shiftableViewController.swift in Sources */,
+				27C94024209113A900C19E9D /* VideoViewController.swift in Sources */,
+				27C9401B2090F3FE00C19E9D /* SwiftyCamButton.swift in Sources */,
 				27F2380C2088EACB001E379B /* DetailViewController.swift in Sources */,
 				27C93FF4208E46E700C19E9D /* ProfileViewController.swift in Sources */,
 				27F2380E20892BA0001E379B /* AddPostViewController.swift in Sources */,
 				2781C3742086A87E00CCA1AD /* Comment.swift in Sources */,
+				27C940182090F3FE00C19E9D /* Orientation.swift in Sources */,
+				27C9401A2090F3FE00C19E9D /* SwiftyCamViewController.swift in Sources */,
 				2781C37A2086AF0400CCA1AD /* MapPin.swift in Sources */,
 				2781C3872087E4BC00CCA1AD /* SignUpViewController.swift in Sources */,
+				27C9401C2090F3FE00C19E9D /* SwiftyCamViewControllerDelegate.swift in Sources */,
 				2781C3572086749100CCA1AD /* AppDelegate.swift in Sources */,
 				2781C37F2087AB3B00CCA1AD /* UserController.swift in Sources */,
 				2781C3702086877200CCA1AD /* User.swift in Sources */,
+				27C940192090F3FE00C19E9D /* PreviewView.swift in Sources */,
 				2781C3722086884700CCA1AD /* Post.swift in Sources */,
 				27C93FF0208A5FBE00C19E9D /* AddAnnotationViewController.swift in Sources */,
+				27C940202090FDC400C19E9D /* SwiftyRecordButton.swift in Sources */,
 				27C93FFC208E822800C19E9D /* HomeFeedCollectionViewCell.swift in Sources */,
+				278349EC2091441300807C49 /* MapPinController.swift in Sources */,
 				27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */,
+				27C9401E2090F43B00C19E9D /* CameraViewController.swift in Sources */,
 				2781C3842087B9F300CCA1AD /* CloudKitManager.swift in Sources */,
 				27C93FF8208E7FBF00C19E9D /* HomeFeedViewController.swift in Sources */,
+				27C940222091135B00C19E9D /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,8 +15,6 @@ class AddPostViewController: ShiftableViewController {
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var gpsLocationLabel: UILabel!
     
-    
-    var user: User?
     var post: Post?
     var gps = CLLocation()
     
@@ -35,7 +33,6 @@ class AddPostViewController: ShiftableViewController {
     
         guard let headline = headlineTextField.text,
             let url = urlTextField.text,
-   //         let gps = gpsLocationLabel.text,
             let user = UserController.shared.currentUser else { return }
         
         PostController.shared.createPostWith(user: user, headline: headline, url: url, gps: gps) { (post) in

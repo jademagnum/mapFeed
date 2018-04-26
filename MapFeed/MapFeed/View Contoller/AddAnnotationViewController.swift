@@ -28,6 +28,7 @@ class AddAnnotationViewController: UIViewController, CLLocationManagerDelegate, 
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.stopUpdatingLocation()
+        
     }
     
     @IBAction func addAnnotationGesture(_ sender: UILongPressGestureRecognizer) {

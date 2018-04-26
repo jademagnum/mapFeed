@@ -49,7 +49,6 @@ class UserController {
             let user = User(username: username, email: email, appleUserRef: appleUserRef)
             
             let userRecord = user.cloudKitRecord
-            let firstName = user.firstName
             
             CKContainer.default().publicCloudDatabase.save(userRecord) { (record, error) in
                 if let error = error { print (error.localizedDescription) }

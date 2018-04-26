@@ -12,13 +12,40 @@ import CoreLocation
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate {
     
+    var mapPin: MapPin?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.stopUpdatingLocation()
+        
+//        handleFetching()
+    }
+    
+//    func handleFetching() {
+//        guard let user = UserController.shared.currentUser else { return }
+//        MapPinController.shared.fetchMapPins(user: user) {
+//            DispatchQueue.main.async {
+//                self.exploreMapView.reloadInputViews()
+//            }
+//        }
+//        guard let mapPin = mapPin else { return }
+//        let mapPinAnnotation = MKPointAnnotation()
+//        let mapPinCLlocation = mapPin.gpsCoordinates.coordinate
+//        mapPinAnnotation.coordinate = CLLocationCoordinate2DMake(mapPinCLlocation.latitude, mapPinCLlocation.longitude)
+//        self.exploreMapView.addAnnotation(mapPinAnnotation)
+//    }
+    
     @IBOutlet weak var exploreMapView: MKMapView!
     @IBAction func searchButtonTapped(_ sender: UIButton) {
         
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         present(searchController, animated: true, completion: nil)
-        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -66,15 +93,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.stopUpdatingLocation()
-    }
     
     //MARK: - MAP, User Location
     let locationManager = CLLocationManager()

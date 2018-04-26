@@ -64,26 +64,6 @@ class PostController {
             completion()
         }
     }
-
-    // This shouldn't be used anymore
-    
-    func fetchAllPosts(post: Post, completion: @escaping () -> Void) {
-        
-        let predicate = NSPredicate(value: true)
-        
-        cloudKitManager.fetchRecordsWithType(Post.typeKey, predicate: predicate, recordFetchedBlock: nil) { (records, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                completion(); return
-            }
-            guard let records = records else { completion(); return }
-            let posts = records.compactMap {Post(cloudKitRecord: $0, user: nil)}
-            self.posts = posts
-            
-        }
-    }
-    
-   
 }
 
 
