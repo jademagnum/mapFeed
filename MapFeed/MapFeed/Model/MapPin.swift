@@ -10,51 +10,67 @@ import Foundation
 import UIKit
 import CloudKit
 import UIKit
+import MapKit
 
-class MapPin {
+extension CLLocationCoordinate2D: Equatable {
+    public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude &&
+            lhs.longitude == rhs.longitude
+    }
+}
+
+class MapPin: NSObject, MKAnnotation {
     
     static let typeKey = "MapPin"
-    private let gpsCoordinatesKey = "gpsCoordinates"
+    private let gpsLongitudeKey = "gpsLongitude"
+    private let gpsLatitudeKey = "gpsLatitude"
     private let referenceKey = "reference"
     private let timestampKey = "timestamp"
     private let mediaDataKey = "mediaData"
     private let userRefKey = "userReference"
     
+    
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: gpsLatitude, longitude: gpsLongitude)
+    }
+    
     weak var user: User?
-    let gpsCoordinates: CLLocation
+    let gpsLongitude: Double
+    let gpsLatitude: Double
     let reference: CKReference
     let timestamp: Date
-    let mediaData: Data?
+    var mediaData: Data?
     var cloudKitRecordID: CKRecordID?
     var photo: UIImage? {
         guard let mediaData = mediaData else { return nil }
         return UIImage(data: mediaData)
     }
     
-    init(user: User?, gpsCoordinates: CLLocation, reference: CKReference, timestamp: Date = Date(), mediaData: Data = Data(), photo: UIImage = UIImage()) {
+    init(user: User?, gpsLatitude: Double, gpsLongitude: Double, reference: CKReference, timestamp: Date = Date(), mediaData: Data = Data(), photo: UIImage = UIImage()) {
         self.user = user
-        self.gpsCoordinates = gpsCoordinates
+        self.gpsLatitude = gpsLatitude
+        self.gpsLongitude = gpsLongitude
         self.reference = reference
         self.timestamp = timestamp
         self.mediaData = mediaData
     }
 
-    init?(cloudKitRecord: CKRecord) {
+    init?(cloudKitRecord: CKRecord, user: User?) {
         
-        guard let gpsCoordinates = cloudKitRecord[gpsCoordinatesKey] as? CLLocation,
+        guard let gpsLatitude = cloudKitRecord[gpsLatitudeKey] as? Double,
+            let gpsLongitude = cloudKitRecord[gpsLongitudeKey] as? Double,
             let reference = cloudKitRecord[referenceKey] as? CKReference,
-            let timestamp = cloudKitRecord[timestampKey] as? Date
-  //          let mediaData = cloudKitRecord[mediaDataKey] as? CKAsset
-            else { return nil }
-        self.gpsCoordinates = gpsCoordinates
+            let timestamp = cloudKitRecord[timestampKey] as? Date else { return nil }
+        self.gpsLatitude = gpsLatitude
+        self.gpsLongitude = gpsLongitude
         self.reference = reference
         self.timestamp = timestamp
- //       self.mediaData = mediaData
         self.cloudKitRecordID = cloudKitRecord.recordID
         
-        guard let photoAsset = cloudKitRecord[mediaDataKey] as? CKAsset else { return nil }
+        guard let photoAsset = cloudKitRecord[mediaDataKey] as? CKAsset else { return }
         let mediaData = try? Data(contentsOf: photoAsset.fileURL)
         self.mediaData = mediaData
+        self.user = user
     }
     
     var temporaryPhotoURL: URL {
@@ -70,7 +86,8 @@ class MapPin {
         let recordID = cloudKitRecordID ?? CKRecordID(recordName: UUID().uuidString)
         let record = CKRecord(recordType: MapPin.typeKey, recordID: recordID)
         
-        record.setValue(gpsCoordinates, forKey: gpsCoordinatesKey)
+        record.setValue(gpsLatitude, forKey: gpsLatitudeKey)
+        record.setValue(gpsLongitude, forKey: gpsLongitudeKey)
         record.setValue(reference, forKey: referenceKey)
         record.setValue(timestamp, forKey: timestampKey)
 //      record.setValue(mediaData, forKey: mediaDataKey)

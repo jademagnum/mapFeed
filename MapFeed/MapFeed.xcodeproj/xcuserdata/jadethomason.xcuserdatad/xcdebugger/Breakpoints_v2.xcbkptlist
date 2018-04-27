@@ -9,14 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MapFeed/Model/MapPin.swift"
-            timestampString = "546469689.505577"
+            filePath = "MapFeed/View Contoller/DetailViewController.swift"
+            timestampString = "546561295.661132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "cloudKitRecord"
-            landmarkType = "24">
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "loadMapPoints()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -25,14 +25,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MapFeed/Model/MapPin.swift"
-            timestampString = "546469689.5057631"
+            filePath = "MapFeed/View Contoller/DetailViewController.swift"
+            timestampString = "546561295.670675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "cloudKitRecord"
-            landmarkType = "24">
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "handleFetching()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -41,14 +41,78 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/MapViewController.swift"
-            timestampString = "546469689.505898"
+            filePath = "MapFeed/View Contoller/DetailViewController.swift"
+            timestampString = "546561295.6713639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "MapViewController"
-            landmarkType = "3">
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "mapView(_:regionDidChangeAnimated:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapFeed/View Contoller/DetailViewController.swift"
+            timestampString = "546561295.671982"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "mapView(_:regionDidChangeAnimated:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MapFeed.DetailViewController.mapView(__ObjC.MKMapView, regionDidChangeAnimated: Swift.Bool) -&gt; ()"
+                  moduleName = "MapFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/DetailViewController.swift"
+                  timestampString = "546561195.55029"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "784">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__ObjC.MKAnnotation) -&gt; Swift.Bool in MapFeed.DetailViewController.mapView(__ObjC.MKMapView, regionDidChangeAnimated: Swift.Bool) -&gt; ()"
+                  moduleName = "MapFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/DetailViewController.swift"
+                  timestampString = "546561195.552569"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapFeed/View Contoller/DetailViewController.swift"
+            timestampString = "546561295.6724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "mapView(_:regionDidChangeAnimated:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

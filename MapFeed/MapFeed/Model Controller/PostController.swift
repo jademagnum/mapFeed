@@ -21,12 +21,12 @@ class PostController {
     }()
     
     
-    func createPostWith(user: User, headline: String, url: String, gps: CLLocation, timestamp: Date = Date(), completion: @escaping ((Post?) -> Void)){
+    func createPostWith(user: User, headline: String, url: String, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), completion: @escaping ((Post?) -> Void)){
         guard let userID = user.cloudKitRecordID else { return }
         
         let userRef = CKReference(recordID: userID, action: .deleteSelf)
     
-        let post = Post(user: user, headline: headline, url: url, gpsPin: gps, userRef: userRef)
+        let post = Post(user: user, headline: headline, url: url, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, userRef: userRef)
         posts.append(post)
         
         // CloudKit manager asks to save a ckRecord

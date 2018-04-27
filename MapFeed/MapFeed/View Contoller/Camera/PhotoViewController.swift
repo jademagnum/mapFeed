@@ -60,10 +60,11 @@ class PhotoViewController: UIViewController, CLLocationManagerDelegate {
     
     @objc func addMapPost() {
         guard let currentUser = UserController.shared.currentUser,
-        let currentGPS =  locationManager.location else { return }
+        let gpsLatitude =  locationManager.location?.coordinate.latitude,
+        let gpsLongitude = locationManager.location?.coordinate.longitude else { return }
         
-        MapPinController.shared.createMapPinWithPhoto(user: currentUser, gps: currentGPS, photo: backgroundImage) { (mapPin) in
-               self.mapPin = mapPin
+        MapPinController.shared.createMapPinWithPhoto(user: currentUser, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, photo: backgroundImage) { (mapPin) in
+            self.mapPin = mapPin
         }
     }
     

@@ -9,6 +9,7 @@
 import Foundation
 import CloudKit
 import UIKit
+import MapKit
 
 class MapPinController {
     static let shared = MapPinController()
@@ -16,19 +17,20 @@ class MapPinController {
     let publicDB = CKContainer.default().publicCloudDatabase
     
     var mapPins: [MapPin] = []
+    var mapPin: MapPin?
     
     let cloudKitManager: CloudKitManager = {
         return CloudKitManager()
     }()
     
     
-    func createMapPinWithPhoto(user: User, gps: CLLocation, timestamp: Date = Date(), photo: UIImage?, completion: @escaping ((MapPin?) -> Void)){
+    func createMapPinWithPhoto(user: User, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), photo: UIImage?, completion: @escaping ((MapPin?) -> Void)){
         guard let userID = user.cloudKitRecordID,
             let photo = photo,
             let photoData = UIImageJPEGRepresentation(photo, 0.8) else { return }
         let userRef = CKReference(recordID: userID, action: .deleteSelf)
         
-        let mapPin = MapPin(user: user, gpsCoordinates: gps, reference: userRef, timestamp: timestamp, mediaData: photoData)
+        let mapPin = MapPin(user: user, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, reference: userRef, timestamp: timestamp, mediaData: photoData)
         mapPins.append(mapPin)
         
         // CloudKit manager asks to save a ckRecord
@@ -48,19 +50,143 @@ class MapPinController {
         }
     }
     
+    func fetchAllMapPins(completion: @escaping ([MapPin]) -> Void) {
+        
+        cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, database: publicDB) { (records, error) in
+            guard let records = records else { return }
+            
+            let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0, user: nil) })
+            completion(mapPins)
+        }
+    }
+    
+ //   func mapView(mapView: MKMapView, regioonDidChangeAnimated animated: Bool) {
+        //        var span: MKCoordinateSpan = mapView.region.span
+        //        var center: CLLocationCoordinate2D = mapView.region.center
+        //
+        //        //This is the farthest Lat point to the left
+        //        var farthestLeft = center.latitude - span.latitudeDelta * 0.5
+        //        //This is the farthest Lat point to the right
+        //        var farthestRight = center.latitude + span.latitudeDelta * 0.5
+        //        //This is the farthest Long point to the top
+        //        var farthestTop = center.longitude - span.longitudeDelta * 0.5
+        //        //This is the farthest Long point to the bottom
+        //        var farthestBotton = center.longitude + span.longitudeDelta * 0.5
+        //        var SWCoord = MKCoordinateForMapPoint(farthestBotton, farthestLeft)
+        //        var NWCoord = MKCoordinateForMapPoint(farthestTop, farthestRight)
+        
+   //     //Using visible mapRect
+  //      var mapRect = mapView.visibleMapRect
+//     //   This is the top right Coordinate
+//        var NECoord = getCoordinateFromMapRectanglePoint(MKMapRectGetMaxX(mapRect), y: mapRect.origin.y)
+//        var SWCoord = getCoordinateFromMapRectanglePoint(mapRect.origin.x, y: MKMapRectGetMaxY(mapRect))
+        
+        
+ //   }
+    
+    func fetchAllMapPinGPSLocationWithinACertainArea(mapView: MKMapView, completion: @escaping ([MapPin]) -> Void) {
+    
+        let span: MKCoordinateSpan = mapView.region.span
+        let center: CLLocationCoordinate2D = mapView.region.center
+        //This is the farthest Lat point to the left
+        let farthestLeft = center.latitude + span.latitudeDelta * 0.5
+        //This is the farthest Lat point to the right
+        let farthestRight = center.latitude - span.latitudeDelta * 0.5
+        //This is the farthest Long point to the top
+        let farthestTop = center.longitude + span.longitudeDelta * 0.5
+        //This is the farthest Long point to the bottom
+        let farthestBottom = center.longitude - span.longitudeDelta * 0.5
+        
+        let predicate1 = NSPredicate(format: "gpsLatitude < %lf", farthestLeft)
+        let predicate2 = NSPredicate(format: "gpsLatitude > %lf", farthestRight)
+        let predicate3 = NSPredicate(format: "gpsLongitude < %lf", farthestTop)
+        let predicate4 = NSPredicate(format: "gpsLongitude > %lf", farthestBottom)
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2, predicate3, predicate4])
+        
+        let query = CKQuery(recordType: MapPin.typeKey, predicate: compoundPredicate)
+//        let query = CKQuery(recordType: MapPin.typeKey, predicate: NSPredicate(value: true))
+        let ckQueryOperation = CKQueryOperation(query: query)
+        ckQueryOperation.desiredKeys = ["gpsLatitude", "gpsLongitude", "reference", "userReference", "timestamp" ]
+        
+        var records: [CKRecord] = []
+        
+        ckQueryOperation.recordFetchedBlock = { (record) in
+            records.append(record)
+        }
+        
+        ckQueryOperation.completionBlock = {
+            let mapPins = records.compactMap({MapPin(cloudKitRecord: $0, user: nil)})
+            completion(mapPins)
+        }
+        
+        publicDB.add(ckQueryOperation)
+        
+//        cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, predicate: <#T##NSPredicate#>, database: publicDB) { (records, error) in
+//            if let error = error { print(error.localizedDescription) }
+//            guard let records = records else { return }
+//
+ //           let mapPins = records.compactMap({MapPin(cloudKitRecord: $0, user: nil)})
+//        }
+    }
+    
+    func fetchAllMapPinGPSLocationWithinMapViewAndCertainTime(mapView: MKMapView, timestamp: Date, completion: @escaping ([MapPin]) -> Void) {
+        
+        let span: MKCoordinateSpan = mapView.region.span
+        let center: CLLocationCoordinate2D = mapView.region.center
+        //This is the farthest Lat point to the left
+        let farthestLeft = center.latitude + span.latitudeDelta * 0.5
+        //This is the farthest Lat point to the right
+        let farthestRight = center.latitude - span.latitudeDelta * 0.5
+        //This is the farthest Long point to the top
+        let farthestTop = center.longitude + span.longitudeDelta * 0.5
+        //This is the farthest Long point to the bottom
+        let farthestBottom = center.longitude - span.longitudeDelta * 0.5
+        
+        let twoDaysAhead = timestamp.addingTimeInterval(172800)
+        let twoDaysBehind = timestamp.addingTimeInterval(-172800)
+        
+        let predicate1 = NSPredicate(format: "gpsLatitude < %lf", farthestLeft)
+        let predicate2 = NSPredicate(format: "gpsLatitude > %lf", farthestRight)
+        let predicate3 = NSPredicate(format: "gpsLongitude < %lf", farthestTop)
+        let predicate4 = NSPredicate(format: "gpsLongitude > %lf", farthestBottom)
+        let predicate5 = NSPredicate(format: "timestamp < %@", twoDaysAhead as CVarArg)
+        let predicate6 = NSPredicate(format: "timestamp > %@", twoDaysBehind as CVarArg)
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2, predicate3, predicate4, predicate5, predicate6])
+        
+        let query = CKQuery(recordType: MapPin.typeKey, predicate: compoundPredicate)
+        
+        let ckQueryOperation = CKQueryOperation(query: query)
+        ckQueryOperation.desiredKeys = ["gpsLatitude", "gpsLongitude", "reference", "userReference", "timestamp" ]
+        
+        var records: [CKRecord] = []
+        
+        ckQueryOperation.recordFetchedBlock = { (record) in
+            records.append(record)
+        }
+        
+        ckQueryOperation.completionBlock = {
+            let mapPins = records.compactMap({MapPin(cloudKitRecord: $0, user: nil)})
+            completion(mapPins)
+        }
+        
+        publicDB.add(ckQueryOperation)
+    }
     
     func fetchMapPins(user: User, completion: @escaping () -> Void) {
         guard let userRecordID = user.cloudKitRecordID else { completion(); return }
         let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
-        let predicate = NSPredicate(format: "userRef == %@", userReference)
+        let predicate = NSPredicate(format: "userReference == %@", userReference)
         
         cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, predicate: predicate, database: publicDB) { (records, error) in
             if let error = error { print(error.localizedDescription) }
             guard let records = records else { completion(); return }
-            let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0)})
+            let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0, user: user )})
             self.mapPins = mapPins
             for mapPin in mapPins {
                 mapPin.user?.mapPins = mapPins
+            
             }
             completion()
         }

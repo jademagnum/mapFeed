@@ -18,6 +18,7 @@ class AddPostViewController: ShiftableViewController {
     var post: Post?
     var gps = CLLocation()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         headlineTextField.delegate = self
@@ -34,8 +35,10 @@ class AddPostViewController: ShiftableViewController {
         guard let headline = headlineTextField.text,
             let url = urlTextField.text,
             let user = UserController.shared.currentUser else { return }
+            let gpsLatitude = gps.coordinate.latitude
+            let gpsLongitude = gps.coordinate.longitude
         
-        PostController.shared.createPostWith(user: user, headline: headline, url: url, gps: gps) { (post) in
+        PostController.shared.createPostWith(user: user, headline: headline, url: url, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude) { (post) in
             DispatchQueue.main.async {
                 self.post = post
                 

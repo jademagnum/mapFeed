@@ -10,9 +10,11 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
-    var mapPin: MapPin?
+    @IBOutlet weak var slider: UISlider!
+    
+    var mapPins: [MapPin] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,25 +25,49 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         locationManager.requestWhenInUseAuthorization()
         locationManager.stopUpdatingLocation()
         
-//        handleFetching()
+        exploreMapView.delegate = self
+
     }
     
-//    func handleFetching() {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let unseenAnnotations = exploreMapView.annotations.filter({ !mapPins.compactMap({$0.coordinate}).contains($0.coordinate) })
+        exploreMapView.removeAnnotations(unseenAnnotations)
+        handleFetching()
+    }
+    
+    
+        
+    func handleFetching() {
 //        guard let user = UserController.shared.currentUser else { return }
+        
+        MapPinController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: exploreMapView) { (mapPins) in
+            
+            DispatchQueue.main.async {
+                self.mapPins = mapPins
+                self.exploreMapView.reloadInputViews()
+                
+                self.exploreMapView.addAnnotations(mapPins)
+            }
+        }
+        
 //        MapPinController.shared.fetchMapPins(user: user) {
 //            DispatchQueue.main.async {
 //                self.exploreMapView.reloadInputViews()
+//
+//
+//                let mapPins = MapPinController.shared.mapPins
+//
+//                self.exploreMapView.addAnnotations(mapPins)
 //            }
 //        }
-//        guard let mapPin = mapPin else { return }
-//        let mapPinAnnotation = MKPointAnnotation()
-//        let mapPinCLlocation = mapPin.gpsCoordinates.coordinate
-//        mapPinAnnotation.coordinate = CLLocationCoordinate2DMake(mapPinCLlocation.latitude, mapPinCLlocation.longitude)
-//        self.exploreMapView.addAnnotation(mapPinAnnotation)
-//    }
+        
+    }
     
     @IBOutlet weak var exploreMapView: MKMapView!
     @IBAction func searchButtonTapped(_ sender: UIButton) {
+        
+        
+        //MARK: - MAP SEARCH AND SEARCHBAR
         
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
