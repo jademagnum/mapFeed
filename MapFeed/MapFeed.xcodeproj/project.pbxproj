@@ -22,6 +22,7 @@
 		2781C3872087E4BC00CCA1AD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781C3862087E4BC00CCA1AD /* SignUpViewController.swift */; };
 		2781C38A2087ED2200CCA1AD /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781C3892087ED2200CCA1AD /* WelcomeViewController.swift */; };
 		278349EC2091441300807C49 /* MapPinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278349EB2091441300807C49 /* MapPinController.swift */; };
+		27AB5AC72097BAF000CEC3E6 /* MediaViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */; };
 		27C93FEA208949B300C19E9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C93FE9208949B300C19E9D /* MapKit.framework */; };
 		27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FEB20894B3500C19E9D /* MapViewController.swift */; };
 		27C93FEE2089511E00C19E9D /* PostAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FED2089511E00C19E9D /* PostAnnotation.swift */; };
@@ -65,6 +66,7 @@
 		2781C3862087E4BC00CCA1AD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2781C3892087ED2200CCA1AD /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		278349EB2091441300807C49 /* MapPinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinController.swift; sourceTree = "<group>"; };
+		27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewerViewController.swift; sourceTree = "<group>"; };
 		27C93FE9208949B300C19E9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		27C93FEB20894B3500C19E9D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		27C93FED2089511E00C19E9D /* PostAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotation.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				27C93FF7208E7FBF00C19E9D /* HomeFeedViewController.swift */,
 				27C93FF9208E81ED00C19E9D /* HomeFeedTableViewCell.swift */,
 				27C93FFB208E822800C19E9D /* HomeFeedCollectionViewCell.swift */,
+				27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */,
 				27C940052090EE4600C19E9D /* Camera */,
 			);
 			path = "View Contoller";
@@ -338,6 +341,7 @@
 				27C93FFC208E822800C19E9D /* HomeFeedCollectionViewCell.swift in Sources */,
 				278349EC2091441300807C49 /* MapPinController.swift in Sources */,
 				27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */,
+				27AB5AC72097BAF000CEC3E6 /* MediaViewerViewController.swift in Sources */,
 				27C9401E2090F43B00C19E9D /* CameraViewController.swift in Sources */,
 				2781C3842087B9F300CCA1AD /* CloudKitManager.swift in Sources */,
 				27C93FF8208E7FBF00C19E9D /* HomeFeedViewController.swift in Sources */,

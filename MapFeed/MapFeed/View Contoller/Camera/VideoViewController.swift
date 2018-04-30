@@ -9,8 +9,11 @@
 import UIKit
 import AVFoundation
 import AVKit
+import MapKit
 
-class VideoViewController: UIViewController {
+class VideoViewController: UIViewController, CLLocationManagerDelegate {
+    
+    var locationManager = CLLocationManager()
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -52,6 +55,18 @@ class VideoViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         view.addSubview(cancelButton)
         
+        let viewSize = self.view.frame.size
+        let addMapPostButton = UIButton(frame: CGRect(x: ((viewSize.width)-50), y: 20, width: 30, height: 30))
+        addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControlState())
+        addMapPostButton.addTarget(self, action: #selector(addMapPost), for: .touchUpInside)
+        view.addSubview(addMapPostButton)
+        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.stopUpdatingLocation()
+        
         
         // Allow background audio to continue to play
         do {
@@ -70,6 +85,22 @@ class VideoViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         player?.play()
+    }
+    
+    @objc func addMapPost() {
+        guard let currentUser = UserController.shared.currentUser,
+            let gpsLatitude =  locationManager.location?.coordinate.latitude,
+            let gpsLongitude = locationManager.location?.coordinate.longitude,
+        let videoData = try? Data(contentsOf: videoURL) else { return }
+        
+        MapPinController.shared.createMapPinWithMediaData(user: currentUser, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, mediaData: videoData) { (mapPin) in
+            NotificationCenter.default.post(name: mediaUploadNotification, object: nil)
+            if let tabBarController = self.presentingViewController as? UITabBarController {
+                self.dismiss(animated: true) {
+                    tabBarController.selectedIndex = 1
+                }
+            }
+        }
     }
     
     @objc func cancel() {

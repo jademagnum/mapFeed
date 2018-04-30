@@ -61,10 +61,17 @@ class PhotoViewController: UIViewController, CLLocationManagerDelegate {
     @objc func addMapPost() {
         guard let currentUser = UserController.shared.currentUser,
         let gpsLatitude =  locationManager.location?.coordinate.latitude,
-        let gpsLongitude = locationManager.location?.coordinate.longitude else { return }
+        let gpsLongitude = locationManager.location?.coordinate.longitude,
+        let photoData = UIImageJPEGRepresentation(backgroundImage, 0.8) else { return }
         
-        MapPinController.shared.createMapPinWithPhoto(user: currentUser, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, photo: backgroundImage) { (mapPin) in
-            self.mapPin = mapPin
+        
+        MapPinController.shared.createMapPinWithMediaData(user: currentUser, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, mediaData: photoData) { (mapPin) in
+            NotificationCenter.default.post(name: mediaUploadNotification, object: nil)
+            if let tabBarController = self.presentingViewController as? UITabBarController {
+                self.dismiss(animated: true) {
+                    tabBarController.selectedIndex = 1
+                }
+            }
         }
     }
     

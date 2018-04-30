@@ -9,11 +9,10 @@
 import Foundation
 import UIKit
 import CloudKit
-import UIKit
 import MapKit
 
 extension CLLocationCoordinate2D: Equatable {
-    public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return lhs.latitude == rhs.latitude &&
             lhs.longitude == rhs.longitude
     }
@@ -32,6 +31,10 @@ class MapPin: NSObject, MKAnnotation {
     
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: gpsLatitude, longitude: gpsLongitude)
+    }
+    
+    var title: String? {
+        return "Media"
     }
     
     weak var user: User?

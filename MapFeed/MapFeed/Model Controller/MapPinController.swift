@@ -24,13 +24,11 @@ class MapPinController {
     }()
     
     
-    func createMapPinWithPhoto(user: User, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), photo: UIImage?, completion: @escaping ((MapPin?) -> Void)){
-        guard let userID = user.cloudKitRecordID,
-            let photo = photo,
-            let photoData = UIImageJPEGRepresentation(photo, 0.8) else { return }
+    func createMapPinWithMediaData(user: User, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), mediaData: Data, completion: @escaping ((MapPin?) -> Void)){
+        guard let userID = user.cloudKitRecordID else { return }
         let userRef = CKReference(recordID: userID, action: .deleteSelf)
         
-        let mapPin = MapPin(user: user, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, reference: userRef, timestamp: timestamp, mediaData: photoData)
+        let mapPin = MapPin(user: user, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, reference: userRef, timestamp: timestamp, mediaData: mediaData)
         mapPins.append(mapPin)
         
         // CloudKit manager asks to save a ckRecord
@@ -57,6 +55,14 @@ class MapPinController {
             
             let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0, user: nil) })
             completion(mapPins)
+        }
+    }
+    
+    func fetchMapPinWithCKRecord(cKRecord: CKRecordID ,completion: @escaping (MapPin?) -> Void) {
+        cloudKitManager.fetchRecord(withID: cKRecord) { (record, error) in
+            guard let record = record else { completion(nil); return }
+            let mapPin = MapPin(cloudKitRecord: record, user: nil)
+            completion(mapPin)
         }
     }
     

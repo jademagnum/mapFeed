@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import MapKit
 
 class PostController {
     static let shared = PostController()
@@ -63,6 +64,47 @@ class PostController {
             
             completion()
         }
+    }
+    
+    
+    func fetchAllMapPinGPSLocationWithinACertainArea(mapView: MKMapView, completion: @escaping ([Post]) -> Void) {
+        
+        let span: MKCoordinateSpan = mapView.region.span
+        let center: CLLocationCoordinate2D = mapView.region.center
+        //This is the farthest Lat point to the left
+        let farthestLeft = center.latitude + span.latitudeDelta * 0.5
+        //This is the farthest Lat point to the right
+        let farthestRight = center.latitude - span.latitudeDelta * 0.5
+        //This is the farthest Long point to the top
+        let farthestTop = center.longitude + span.longitudeDelta * 0.5
+        //This is the farthest Long point to the bottom
+        let farthestBottom = center.longitude - span.longitudeDelta * 0.5
+        
+        let predicate1 = NSPredicate(format: "gpsLatitude < %lf", farthestLeft)
+        let predicate2 = NSPredicate(format: "gpsLatitude > %lf", farthestRight)
+        let predicate3 = NSPredicate(format: "gpsLongitude < %lf", farthestTop)
+        let predicate4 = NSPredicate(format: "gpsLongitude > %lf", farthestBottom)
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2, predicate3, predicate4])
+        
+        let query = CKQuery(recordType: Post.typeKey, predicate: compoundPredicate)
+        //This gets everything
+        //        let query = CKQuery(recordType: MapPin.typeKey, predicate: NSPredicate(value: true))
+        let ckQueryOperation = CKQueryOperation(query: query)
+        ckQueryOperation.desiredKeys = ["gpsLatitude", "gpsLongitude", "url", "headline", "userRef", "timestamp" ]
+        
+        var records: [CKRecord] = []
+        
+        ckQueryOperation.recordFetchedBlock = { (record) in
+            records.append(record)
+        }
+        
+        ckQueryOperation.completionBlock = {
+            let posts = records.compactMap({Post(cloudKitRecord: $0, user: nil)})
+            completion(posts)
+        }
+        
+        publicDB.add(ckQueryOperation)
     }
 }
 

@@ -440,6 +440,8 @@
                     <connections>
                         <outlet property="exploreMapView" destination="Irl-uS-F3v" id="7QP-aD-MVh"/>
                         <outlet property="slider" destination="7Na-je-AGy" id="7Rl-eN-yDt"/>
+                        <segue destination="VGC-Ha-ceO" kind="show" identifier="toDetailVC" id="u9z-6l-0EL"/>
+                        <segue destination="YQT-by-BUG" kind="show" identifier="toMediaPlayerVC" id="gv2-bF-u7X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XkG-K5-AFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -480,6 +482,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gYc-Hx-wNg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2655" y="538"/>
+        </scene>
+        <!--Media Viewer View Controller-->
+        <scene sceneID="SPZ-UB-6NP">
+            <objects>
+                <viewController id="YQT-by-BUG" customClass="MediaViewerViewController" customModule="MapFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mya-qn-GaN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="6LM-Jc-2TN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vei-79-wZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3398" y="537"/>
         </scene>
         <!--Add Annotation View Controller-->
         <scene sceneID="zi6-Qe-xZm">
@@ -761,6 +778,6 @@
         <image name="flipCamera" width="30" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RLx-jZ-myu"/>
+        <segue reference="u9z-6l-0EL"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -38,16 +38,12 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         guard let postAnnotation = self.postAnnotation else { return }
-        
         var unseenAnnotations = detailMapView.annotations.filter({ !mapPins.compactMap({$0.coordinate}).contains($0.coordinate) })
-        
         for _ in unseenAnnotations {
             if let postAnnotationIndex = unseenAnnotations.index(where: {$0.coordinate == postAnnotation.coordinate}) {
                 unseenAnnotations.remove(at: postAnnotationIndex)
             }
         }
-        
-        
         detailMapView.removeAnnotations(unseenAnnotations)
         handleFetching()
     }

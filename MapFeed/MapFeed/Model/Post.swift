@@ -9,8 +9,24 @@
 import Foundation
 import CloudKit
 import CoreData
+import MapKit
 
-class Post {
+//extension CLLocationCoordinate2D: Equatable {
+//    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+//        return lhs.latitude == rhs.latitude &&
+//            lhs.longitude == rhs.longitude
+//    }
+//}
+
+    class Post: NSObject, MKAnnotation {
+        
+        var coordinate: CLLocationCoordinate2D {
+            return CLLocationCoordinate2D(latitude: gpsLatitude, longitude: gpsLongitude)
+        }
+        
+        var title: String? {
+            return headline
+        }
     
     static let typeKey = "Post"
     private let headlineKey = "headline"
