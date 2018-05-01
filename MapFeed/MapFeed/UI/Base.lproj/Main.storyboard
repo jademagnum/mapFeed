@@ -429,15 +429,18 @@
                                     <action selector="searchButtonTapped:" destination="Vcq-yi-8rA" eventType="touchUpInside" id="qTd-i4-vVk"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Na-je-AGy">
-                                <rect key="frame" x="14" y="494" width="347" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" destination="Vcq-yi-8rA" eventType="valueChanged" id="Fx6-z0-VjO"/>
-                                </connections>
-                            </slider>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="pSB-Cs-7Zn">
+                                <rect key="frame" x="0.0" y="527" width="375" height="80"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="v2e-Wo-5XK"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="546904129.27798605">
+                                    <!--2018-05-01 21:48:49 +0000-->
+                                </date>
+                            </datePicker>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pJo-Vh-LiE">
-                                <rect key="frame" x="16" y="531" width="343" height="29"/>
+                                <rect key="frame" x="16" y="491" width="343" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="All Time"/>
@@ -445,37 +448,27 @@
                                     <segment title="Month"/>
                                     <segment title="Day"/>
                                 </segments>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="segmentControlValueChanged:" destination="Vcq-yi-8rA" eventType="valueChanged" id="yVG-pn-S5y"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="begDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCg-zL-gNY">
-                                <rect key="frame" x="16" y="465" width="66" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="endDate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfc-qD-2Kk">
-                                <rect key="frame" x="294" y="464" width="65" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pSB-Cs-7Zn" firstAttribute="trailing" secondItem="Fxj-tm-mcC" secondAttribute="trailing" id="GbP-gS-CSS"/>
+                            <constraint firstAttribute="bottom" secondItem="pSB-Cs-7Zn" secondAttribute="bottom" constant="60" id="a1o-8f-CV6"/>
+                            <constraint firstItem="pSB-Cs-7Zn" firstAttribute="leading" secondItem="Fxj-tm-mcC" secondAttribute="leading" id="cDf-Jj-0Jj"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Fxj-tm-mcC"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="SVO-Cq-Xbp"/>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="begDateLabel" destination="OCg-zL-gNY" id="LPe-N4-zv6"/>
-                        <outlet property="endDateLabel" destination="Pfc-qD-2Kk" id="coT-3W-d1I"/>
+                        <outlet property="datePicker" destination="pSB-Cs-7Zn" id="yep-gt-0Kn"/>
                         <outlet property="exploreMapView" destination="Irl-uS-F3v" id="7QP-aD-MVh"/>
                         <outlet property="segmentControl" destination="pJo-Vh-LiE" id="Tab-MZ-bYS"/>
-                        <outlet property="slider" destination="7Na-je-AGy" id="7Rl-eN-yDt"/>
                         <segue destination="VGC-Ha-ceO" kind="show" identifier="toDetailVC" id="u9z-6l-0EL"/>
                         <segue destination="YQT-by-BUG" kind="show" identifier="toMediaPlayerVC" id="gv2-bF-u7X"/>
                     </connections>

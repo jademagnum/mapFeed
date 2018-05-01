@@ -14,10 +14,8 @@ let mediaUploadNotification = Notification.Name("mediaUploadNotification")
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
-    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var segmentControl: UISegmentedControl!
-    @IBOutlet weak var begDateLabel: UILabel!
-    @IBOutlet weak var endDateLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     var mapPins: [MapPin] = []
     var posts: [Post] = []
@@ -50,10 +48,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             guard let begDateFloat = begDate?.timeIntervalSince1970 else { return }
             let endDateFloat = endDate.timeIntervalSince1970
             
-            slider.minimumValue = Float(begDateFloat)
-            slider.maximumValue = Float(endDateFloat)
-            
-            let value = slider.value
+//            slider.minimumValue = Float(begDateFloat)
+//            slider.maximumValue = Float(endDateFloat)
+//
+//            let value = slider.value
             
             
         case 1:
@@ -64,8 +62,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             let begDateFloat = begDate.timeIntervalSince1970
             let endDateFloat = endDate.timeIntervalSince1970
             
-            slider.minimumValue = Float(begDateFloat)
-            slider.maximumValue = Float(endDateFloat)
+//            slider.minimumValue = Float(begDateFloat)
+//            slider.maximumValue = Float(endDateFloat)
             
             
         case 2:
@@ -76,8 +74,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             let begDateFloat = begDate.timeIntervalSince1970
             let endDateFloat = endDate.timeIntervalSince1970
             
-            slider.minimumValue = Float(begDateFloat)
-            slider.maximumValue = Float(endDateFloat)
+//            slider.minimumValue = Float(begDateFloat)
+//            slider.maximumValue = Float(endDateFloat)
             
         case 3:
             // Day
@@ -87,15 +85,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             let begDateFloat = begDate.timeIntervalSince1970
             let endDateFloat = endDate.timeIntervalSince1970
             
-            slider.minimumValue = Float(begDateFloat)
-            slider.maximumValue = Float(endDateFloat)
+//            slider.minimumValue = Float(begDateFloat)
+//            slider.maximumValue = Float(endDateFloat)
+//
+//            let value = Double(slider.value)
             
-            let value = Double(slider.value)
+//            let beginningFilterDate = Date(timeIntervalSince1970: value - 5400.0)
+//            let endFilterDate = Date(timeIntervalSince1970: value + 5400.0)
             
-            let beginningFilterDate = Date(timeIntervalSince1970: value - 5400.0)
-            let endFilterDate = Date(timeIntervalSince1970: value + 5400.0)
-            
-            dateFilter(begDate: beginningFilterDate, endDate: endFilterDate)
+//            dateFilter(begDate: beginningFilterDate, endDate: endFilterDate)
             
         default:
             break
