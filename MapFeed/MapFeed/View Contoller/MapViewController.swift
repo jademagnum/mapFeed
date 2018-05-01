@@ -14,13 +14,106 @@ let mediaUploadNotification = Notification.Name("mediaUploadNotification")
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
-    
     @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var begDateLabel: UILabel!
+    @IBOutlet weak var endDateLabel: UILabel!
     
     var mapPins: [MapPin] = []
     var posts: [Post] = []
     var post: Post?
     var postAnnotations: [MKPointAnnotation]? = []
+    var currentDate: Date = Date()
+    
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        
+        
+        
+    }
+    
+    @IBAction func segmentControlValueChanged(_ sender: Any) {
+        // Run the filter here too
+        switch segmentControl.selectedSegmentIndex {
+            
+        case 0:
+            // All Time
+            var c = DateComponents()
+            c.year = 2018
+            c.month = 4
+            c.day = 20
+            
+            let date = Calendar.current
+            let begDate = date.date(from: c)
+            
+            let endDate = currentDate
+            
+            guard let begDateFloat = begDate?.timeIntervalSince1970 else { return }
+            let endDateFloat = endDate.timeIntervalSince1970
+            
+            slider.minimumValue = Float(begDateFloat)
+            slider.maximumValue = Float(endDateFloat)
+            
+            let value = slider.value
+            
+            
+        case 1:
+            // Year
+            let begDate = currentDate.addingTimeInterval(-31536000)
+            let endDate = currentDate
+            
+            let begDateFloat = begDate.timeIntervalSince1970
+            let endDateFloat = endDate.timeIntervalSince1970
+            
+            slider.minimumValue = Float(begDateFloat)
+            slider.maximumValue = Float(endDateFloat)
+            
+            
+        case 2:
+            // Month
+            let begDate = currentDate.addingTimeInterval(-2592000)
+            let endDate = currentDate
+            
+            let begDateFloat = begDate.timeIntervalSince1970
+            let endDateFloat = endDate.timeIntervalSince1970
+            
+            slider.minimumValue = Float(begDateFloat)
+            slider.maximumValue = Float(endDateFloat)
+            
+        case 3:
+            // Day
+            let begDate = currentDate.addingTimeInterval(-86400)
+            let endDate = currentDate
+            
+            let begDateFloat = begDate.timeIntervalSince1970
+            let endDateFloat = endDate.timeIntervalSince1970
+            
+            slider.minimumValue = Float(begDateFloat)
+            slider.maximumValue = Float(endDateFloat)
+            
+            let value = Double(slider.value)
+            
+            let beginningFilterDate = Date(timeIntervalSince1970: value - 5400.0)
+            let endFilterDate = Date(timeIntervalSince1970: value + 5400.0)
+            
+            dateFilter(begDate: beginningFilterDate, endDate: endFilterDate)
+            
+        default:
+            break
+        }
+    }
+    
+    func dateFilter(begDate: Date, endDate: Date) {
+        let filteredPins = self.mapPins.filter({$0.timestamp > begDate && $0.timestamp < endDate})
+        for filteredPin in filteredPins {
+            if exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
+                // The pin is already on the map view, we don't need to do anything
+            } else {
+                exploreMapView.addAnnotation(filteredPin)
+//                exploreMapView.remove(!filteredPins)
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -233,8 +326,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         exploreMapView.setRegion(region, animated: true)
         self.exploreMapView.showsUserLocation = true
     }
-    
-    
     
     // MARK: - Navigation
     //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

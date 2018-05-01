@@ -25,13 +25,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         postsTableView.delegate = self
         postsTableView.dataSource = self
         
+        
         guard let currentUser = UserController.shared.currentUser else { return }
+        
+        userNameLabel.text = currentUser.username
+        firstNameLastNameLabel.text = "\(String(describing: currentUser.firstName)) \(String(describing: currentUser.lastName))"
+        websiteLabel.text = "\(String(describing: currentUser.link))"
+        bioLabel.text = currentUser.bio
+        
         PostController.shared.fetchPosts(user: currentUser) {
             DispatchQueue.main.async {
                 self.postsTableView.reloadData()
             }
         }
     }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let userPosts = PostController.shared.posts.count
