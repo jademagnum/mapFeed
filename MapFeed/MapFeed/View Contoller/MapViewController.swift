@@ -20,15 +20,60 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     @IBOutlet weak var endDateLabel: UILabel!
     
     var mapPins: [MapPin] = []
+    var filteredMapPins: [MapPin] = []
+    var filteredPosts: [Post] = []
     var posts: [Post] = []
     var post: Post?
+    
+    var allAnnotations: [MKAnnotation] {
+        var annotations: [MKAnnotation] = filteredMapPins
+        annotations.append(contentsOf: filteredPosts)
+
+        return annotations
+    }
+    
     var postAnnotations: [MKPointAnnotation]? = []
     var currentDate: Date = Date()
     
+    var begDateValue: Date?
+    var endDateValue: Date?
+    
     @IBAction func sliderValueChanged(_ sender: Any) {
         
+        let value = Double(slider.value)
         
+        var rangeOffset = 0.0
         
+        switch segmentControl.selectedSegmentIndex {
+            
+        case 0:
+            // All Time
+            rangeOffset = 129600.0
+        case 1:
+            // Year
+            rangeOffset = 1296000.0
+        case 2:
+            // Month
+        rangeOffset = 129600.0
+        case 3:
+            // Day
+            rangeOffset = 5400.0
+        default:
+            break
+        }
+        
+        let beginningFilterDate = Date(timeIntervalSince1970: value - rangeOffset)
+        let endFilterDate = Date(timeIntervalSince1970: value + rangeOffset)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        
+        begDateLabel.text = dateFormatter.string(from: beginningFilterDate)
+        endDateLabel.text = dateFormatter.string(from: endFilterDate)
+        
+        dateFilter(begDate: beginningFilterDate, endDate: endFilterDate)
+
     }
     
     @IBAction func segmentControlValueChanged(_ sender: Any) {
@@ -53,7 +98,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             slider.minimumValue = Float(begDateFloat)
             slider.maximumValue = Float(endDateFloat)
             
-            let value = slider.value
+            let value = Double(slider.value)
+            
+            let beginningFilterDate = Date(timeIntervalSince1970: value - 7776000.0)
+            let endFilterDate = Date(timeIntervalSince1970: value + 7776000.0)
+            
+            slider.isHidden = false
             
             
         case 1:
@@ -67,7 +117,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             slider.minimumValue = Float(begDateFloat)
             slider.maximumValue = Float(endDateFloat)
             
+            let value = Double(slider.value)
             
+            let beginningFilterDate = Date(timeIntervalSince1970: value - 1296000.0)
+            let endFilterDate = Date(timeIntervalSince1970: value + 1296000.0)
+            
+            slider.isHidden = false
+
         case 2:
             // Month
             let begDate = currentDate.addingTimeInterval(-2592000)
@@ -78,6 +134,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             
             slider.minimumValue = Float(begDateFloat)
             slider.maximumValue = Float(endDateFloat)
+            
+            let value = Double(slider.value)
+            
+            let beginningFilterDate = Date(timeIntervalSince1970: value - 86400.0)
+            let endFilterDate = Date(timeIntervalSince1970: value + 86400.0)
+            
+            slider.isHidden = false
             
         case 3:
             // Day
@@ -95,7 +158,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             let beginningFilterDate = Date(timeIntervalSince1970: value - 5400.0)
             let endFilterDate = Date(timeIntervalSince1970: value + 5400.0)
             
-            dateFilter(begDate: beginningFilterDate, endDate: endFilterDate)
+            slider.isHidden = false
             
         default:
             break
@@ -104,16 +167,61 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     
     func dateFilter(begDate: Date, endDate: Date) {
         let filteredPins = self.mapPins.filter({$0.timestamp > begDate && $0.timestamp < endDate})
+        print(filteredPins.count)
+    
+        for annotation in exploreMapView.annotations {
+            
+//            guard let annotation = annotation as? MapPin else { return }
+            
+            if !filteredPins.contains(where: {$0.coordinate == annotation.coordinate}) {
+                exploreMapView.removeAnnotation(annotation)
+//                guard let removedAnnotationIndex = filteredMapPins.index(of: annotation) else { return }
+//                filteredMapPins.remove(at: removedAnnotationIndex)
+            }
+        }
+        
         for filteredPin in filteredPins {
             if exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
                 // The pin is already on the map view, we don't need to do anything
             } else {
                 exploreMapView.addAnnotation(filteredPin)
-//                exploreMapView.remove(!filteredPins)
+                //                exploreMapView.remove(!filteredPins)
             }
         }
+
+        
+//        for filteredPin in filteredPins {
+//            if exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
+//                exploreMapView.removeAnnotation(filteredPin)
+//                guard let removedAnnotationIndex = filteredMapPins.index(of: filteredPin) else { return }
+//                filteredMapPins.remove(at: removedAnnotationIndex)
+//            } else {
+//                exploreMapView.addAnnotation(filteredPin)
+//                filteredMapPins.append(filteredPin)
+//            }
+//        }
     }
     
+//WHAT WE HAD WHEN IT WAS WORKING
+//    func dateFilter(begDate: Date, endDate: Date) {
+//        let filteredPins = self.mapPins.filter({$0.timestamp > begDate && $0.timestamp < endDate})
+//
+//        for annotation in exploreMapView.annotations {
+//            if !filteredPins.contains(where: {$0.coordinate == annotation.coordinate}) {
+//                exploreMapView.removeAnnotation(annotation)
+//            }
+//        }
+//
+//        for filteredPin in filteredPins {
+//            if exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
+//                // The pin is already on the map view, we don't need to do anything
+//            } else {
+//                exploreMapView.addAnnotation(filteredPin)
+//                //                exploreMapView.remove(!filteredPins)
+//            }
+//        }
+//    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +252,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         guard let postAnnotations = self.postAnnotations else { return }
-        var unseenAnnotations = exploreMapView.annotations.filter({ mapPins.compactMap({$0.coordinate}).contains($0.coordinate) })
+        var unseenAnnotations = exploreMapView.annotations
         for _ in unseenAnnotations {
             for postAnnotation in postAnnotations {
                 if let postAnnotationIndex = unseenAnnotations.index(where: {$0.coordinate == postAnnotation.coordinate}) {
@@ -160,6 +268,34 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         }
         exploreMapView.removeAnnotations(unseenAnnotations)
         handleFetching()
+    }
+    
+    func handleFetching() {
+        MapPinController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: exploreMapView) { (mapPins) in
+            PostController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: self.exploreMapView, completion: { (posts) in
+                DispatchQueue.main.async {
+                    self.mapPins = mapPins
+                    self.posts = posts
+                    
+                    var mapPinsToAdd: [MapPin] = []
+                    for mapPin in mapPins {
+                        if !self.exploreMapView.annotations.contains(where: {$0.coordinate == mapPin.coordinate}) {
+                            mapPinsToAdd.append(mapPin)
+                        }
+                    }
+                    
+                    var postsPinsToAdd: [Post] = []
+                    for post in posts {
+                        if !self.exploreMapView.annotations.contains(where: {$0.coordinate == post.coordinate}) {
+                            postsPinsToAdd.append(post)
+                        }
+                    }
+                    
+                    self.exploreMapView.addAnnotations(mapPinsToAdd)
+                    self.exploreMapView.addAnnotations(postsPinsToAdd)
+                }
+            })
+        }
     }
     
     //    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -244,20 +380,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         }
     }
     
-    func handleFetching() {
-        //        guard let user = UserController.shared.currentUser else { return }
-        
-        MapPinController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: exploreMapView) { (mapPins) in
-            PostController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: self.exploreMapView, completion: { (posts) in
-                DispatchQueue.main.async {
-                    self.mapPins = mapPins
-                    self.posts = posts
-                    self.exploreMapView.addAnnotations(mapPins)
-                    self.exploreMapView.addAnnotations(posts)
-                }
-            })
-        }
-    }
     
     @IBOutlet weak var exploreMapView: MKMapView!
     @IBAction func searchButtonTapped(_ sender: UIButton) {
@@ -314,7 +436,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             
         }
     }
-    
     
     //MARK: - MAP, User Location
     let locationManager = CLLocationManager()
