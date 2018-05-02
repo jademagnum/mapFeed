@@ -18,15 +18,15 @@ import MapKit
 //    }
 //}
 
-    class Post: NSObject, MKAnnotation {
-        
-        var coordinate: CLLocationCoordinate2D {
-            return CLLocationCoordinate2D(latitude: gpsLatitude, longitude: gpsLongitude)
-        }
-        
-        var title: String? {
-            return headline
-        }
+class Post: NSObject, MKAnnotation {
+    
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: gpsLatitude, longitude: gpsLongitude)
+    }
+    
+    var title: String? {
+        return headline
+    }
     
     static let typeKey = "Post"
     private let headlineKey = "headline"
@@ -67,7 +67,7 @@ import MapKit
             let gpsLatitude = cloudKitRecord[gpsLatitudeKey] as? Double,
             let gpsLongitude = cloudKitRecord[gpsLongitudeKey] as? Double,
             let userRef = cloudKitRecord[userRefKey] as? CKReference else { return nil }
-            
+        
         self.url = url
         self.headline = headline
         self.gpsLatitude = gpsLatitude
@@ -99,18 +99,4 @@ import MapKit
         return record
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -443,6 +443,7 @@
                                     <segment title="All Time"/>
                                     <segment title="Year"/>
                                     <segment title="Month"/>
+                                    <segment title="Week"/>
                                     <segment title="Day"/>
                                 </segments>
                                 <connections>

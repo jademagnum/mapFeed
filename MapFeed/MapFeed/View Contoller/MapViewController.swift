@@ -28,21 +28,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     var allAnnotations: [MKAnnotation] {
         var annotations: [MKAnnotation] = filteredMapPins
         annotations.append(contentsOf: filteredPosts)
-
+        
         return annotations
     }
     
     var postAnnotations: [MKPointAnnotation]? = []
     var currentDate: Date = Date()
     
-    var begDateValue: Date?
-    var endDateValue: Date?
+    var begDateValue: Date = Date().addingTimeInterval(-86400)
+    var endDateValue: Date = Date()
     
     @IBAction func sliderValueChanged(_ sender: Any) {
         
         let value = Double(slider.value)
         
-        var rangeOffset = 0.0
+        var rangeOffset = 5400.0
         
         switch segmentControl.selectedSegmentIndex {
             
@@ -54,8 +54,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             rangeOffset = 1296000.0
         case 2:
             // Month
-        rangeOffset = 129600.0
+            rangeOffset = 129600.0
         case 3:
+            // Day
+            rangeOffset = 5400.0
+        case 4:
             // Day
             rangeOffset = 5400.0
         default:
@@ -65,6 +68,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         let beginningFilterDate = Date(timeIntervalSince1970: value - rangeOffset)
         let endFilterDate = Date(timeIntervalSince1970: value + rangeOffset)
         
+        self.begDateValue = beginningFilterDate
+        self.endDateValue = endFilterDate
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
@@ -73,7 +79,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         endDateLabel.text = dateFormatter.string(from: endFilterDate)
         
         dateFilter(begDate: beginningFilterDate, endDate: endFilterDate)
-
+        
     }
     
     @IBAction func segmentControlValueChanged(_ sender: Any) {
@@ -122,8 +128,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             let beginningFilterDate = Date(timeIntervalSince1970: value - 1296000.0)
             let endFilterDate = Date(timeIntervalSince1970: value + 1296000.0)
             
+            
             slider.isHidden = false
-
+            
         case 2:
             // Month
             let begDate = currentDate.addingTimeInterval(-2592000)
@@ -143,6 +150,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             slider.isHidden = false
             
         case 3:
+            // Week
+            let begDate = currentDate.addingTimeInterval(-604800)
+            let endDate = currentDate
+            
+            let begDateFloat = begDate.timeIntervalSince1970
+            let endDateFloat = endDate.timeIntervalSince1970
+            
+            slider.minimumValue = Float(begDateFloat)
+            slider.maximumValue = Float(endDateFloat)
+            
+            let value = Double(slider.value)
+            
+            let beginningFilterDate = Date(timeIntervalSince1970: value - 5400.0)
+            let endFilterDate = Date(timeIntervalSince1970: value + 5400.0)
+            
+            slider.isHidden = false
+            
+        case 4:
             // Day
             let begDate = currentDate.addingTimeInterval(-86400)
             let endDate = currentDate
@@ -167,61 +192,39 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     
     func dateFilter(begDate: Date, endDate: Date) {
         let filteredPins = self.mapPins.filter({$0.timestamp > begDate && $0.timestamp < endDate})
+        let filteredPosts = self.posts.filter({$0.timeStamp > begDate && $0.timeStamp < endDate})
+        
         print(filteredPins.count)
-    
+        
         for annotation in exploreMapView.annotations {
             
-//            guard let annotation = annotation as? MapPin else { return }
-            
-            if !filteredPins.contains(where: {$0.coordinate == annotation.coordinate}) {
-                exploreMapView.removeAnnotation(annotation)
-//                guard let removedAnnotationIndex = filteredMapPins.index(of: annotation) else { return }
-//                filteredMapPins.remove(at: removedAnnotationIndex)
+            if annotation is MapPin {
+                
+                if !filteredPins.contains(where: {$0.coordinate == annotation.coordinate}) {
+                    exploreMapView.removeAnnotation(annotation)
+                }
+                
+            } else if annotation is Post {
+                if !filteredPosts.contains(where: {$0.coordinate == annotation.coordinate}) {
+                    exploreMapView.removeAnnotation(annotation)
+                }
             }
         }
         
         for filteredPin in filteredPins {
-            if exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
-                // The pin is already on the map view, we don't need to do anything
-            } else {
+            if !exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
                 exploreMapView.addAnnotation(filteredPin)
-                //                exploreMapView.remove(!filteredPins)
             }
         }
 
+        for filteredPost in filteredPosts {
+            if !exploreMapView.annotations.contains(where: {$0.coordinate == filteredPost.coordinate}) {
+                exploreMapView.addAnnotation(filteredPost)
+            }
+        }
         
-//        for filteredPin in filteredPins {
-//            if exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
-//                exploreMapView.removeAnnotation(filteredPin)
-//                guard let removedAnnotationIndex = filteredMapPins.index(of: filteredPin) else { return }
-//                filteredMapPins.remove(at: removedAnnotationIndex)
-//            } else {
-//                exploreMapView.addAnnotation(filteredPin)
-//                filteredMapPins.append(filteredPin)
-//            }
-//        }
     }
     
-//WHAT WE HAD WHEN IT WAS WORKING
-//    func dateFilter(begDate: Date, endDate: Date) {
-//        let filteredPins = self.mapPins.filter({$0.timestamp > begDate && $0.timestamp < endDate})
-//
-//        for annotation in exploreMapView.annotations {
-//            if !filteredPins.contains(where: {$0.coordinate == annotation.coordinate}) {
-//                exploreMapView.removeAnnotation(annotation)
-//            }
-//        }
-//
-//        for filteredPin in filteredPins {
-//            if exploreMapView.annotations.contains(where: {$0.coordinate == filteredPin.coordinate}) {
-//                // The pin is already on the map view, we don't need to do anything
-//            } else {
-//                exploreMapView.addAnnotation(filteredPin)
-//                //                exploreMapView.remove(!filteredPins)
-//            }
-//        }
-//    }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -293,6 +296,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
                     
                     self.exploreMapView.addAnnotations(mapPinsToAdd)
                     self.exploreMapView.addAnnotations(postsPinsToAdd)
+                    
+                    self.dateFilter(begDate: self.begDateValue, endDate: self.endDateValue)
                 }
             })
         }
@@ -331,7 +336,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             if annotation is MapPin {
                 dequeuedView.markerTintColor = UIColor.red
                 dequeuedView.glyphText = "📷"
-//                dequeuedView.detailCalloutAccessoryView = nil
+                //                dequeuedView.detailCalloutAccessoryView = nil
                 
                 dequeuedView.titleVisibility = .hidden
                 
@@ -354,7 +359,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             if annotation is MapPin {
                 mkMarkerAnnotationView.markerTintColor = UIColor.red
                 mkMarkerAnnotationView.glyphText = "📷"
-//                mkMarkerAnnotationView.detailCalloutAccessoryView = nil
+                //                mkMarkerAnnotationView.detailCalloutAccessoryView = nil
                 mkMarkerAnnotationView.titleVisibility = .hidden
                 
                 mkMarkerAnnotationView.canShowCallout = true
