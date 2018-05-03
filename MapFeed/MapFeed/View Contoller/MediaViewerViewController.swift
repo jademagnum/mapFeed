@@ -55,6 +55,12 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
                     cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControlState())
                     cancelButton.addTarget(self, action: #selector(self.cancel), for: .touchUpInside)
                     self.view.addSubview(cancelButton)
+                    
+                    let viewSize = self.view.frame.size
+                    let addMapPostButton = UIButton(frame: CGRect(x: ((viewSize.width)-50), y: 20, width: 30, height: 30))
+                    addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControlState())
+                    addMapPostButton.addTarget(self, action: #selector(self.report), for: .touchUpInside)
+                    self.view.addSubview(addMapPostButton)
                 }
             } else {
                 
@@ -89,6 +95,12 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
                     cancelButton.addTarget(self, action: #selector(self.cancel), for: .touchUpInside)
                     self.view.addSubview(cancelButton)
                     
+                    let viewSize = self.view.frame.size
+                    let addMapPostButton = UIButton(frame: CGRect(x: ((viewSize.width)-50), y: 20, width: 30, height: 30))
+                    addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControlState())
+                    addMapPostButton.addTarget(self, action: #selector(self.report), for: .touchUpInside)
+                    self.view.addSubview(addMapPostButton)
+                    
                     // Allow background audio to continue to play
                     do {
                         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
@@ -113,6 +125,23 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
         player?.play()
     }
     
+    @objc func report() {
+        let actionSheetController = UIAlertController(title: "Report", message: "Report Post", preferredStyle: .actionSheet)
+        let firstAction = UIAlertAction(title: "Report", style: .default) { (report) in
+            
+            self.performSegue(withIdentifier: "toReportVC", sender: self)
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
+        }
+        
+        actionSheetController.addAction(firstAction)
+        actionSheetController.addAction(cancelAction)
+        
+        present(actionSheetController, animated: true, completion: nil)
+        
+    }
+    
     @objc func cancel() {
         dismiss(animated: true, completion: nil)
     }
@@ -123,5 +152,36 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
             self.player?.play()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toReportVC" {
+            guard let sender = sender as? MediaViewerViewController,
+                let reportVC = segue.destination as? ReportViewController else { return }
+            var mapPin = sender.mapPin
+            reportVC.mapPin = mapPin
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

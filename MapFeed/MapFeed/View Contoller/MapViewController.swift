@@ -57,10 +57,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             rangeOffset = 129600.0
         case 3:
             // Day
-            rangeOffset = 5400.0
+            rangeOffset = 86400.0
         case 4:
             // Day
-            rangeOffset = 5400.0
+            rangeOffset = 7200.0
         default:
             break
         }
@@ -216,13 +216,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
                 exploreMapView.addAnnotation(filteredPin)
             }
         }
-
+        
         for filteredPost in filteredPosts {
             if !exploreMapView.annotations.contains(where: {$0.coordinate == filteredPost.coordinate}) {
                 exploreMapView.addAnnotation(filteredPost)
             }
         }
-        
     }
     
     
@@ -236,6 +235,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         locationManager.stopUpdatingLocation()
         
         exploreMapView.delegate = self
+        
+        segmentControl.selectedSegmentIndex = 4
+        segmentControlValueChanged(self)
+        slider.value = slider.maximumValue
+        sliderValueChanged(self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(recenterMapOnUser), name: mediaUploadNotification, object: nil)
         
@@ -254,11 +258,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        guard let postAnnotations = self.postAnnotations else { return }
         var unseenAnnotations = exploreMapView.annotations
         for _ in unseenAnnotations {
-            for postAnnotation in postAnnotations {
-                if let postAnnotationIndex = unseenAnnotations.index(where: {$0.coordinate == postAnnotation.coordinate}) {
+            for post in posts {
+                if let postAnnotationIndex = unseenAnnotations.index(where: {$0.coordinate == post.coordinate}) {
                     unseenAnnotations.remove(at: postAnnotationIndex)
                 }
             }
@@ -273,55 +276,89 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         handleFetching()
     }
     
-    func handleFetching() {
-        MapPinController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: exploreMapView) { (mapPins) in
-            PostController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: self.exploreMapView, completion: { (posts) in
-                DispatchQueue.main.async {
-                    self.mapPins = mapPins
-                    self.posts = posts
-                    
-                    var mapPinsToAdd: [MapPin] = []
-                    for mapPin in mapPins {
-                        if !self.exploreMapView.annotations.contains(where: {$0.coordinate == mapPin.coordinate}) {
-                            mapPinsToAdd.append(mapPin)
-                        }
-                    }
-                    
-                    var postsPinsToAdd: [Post] = []
-                    for post in posts {
-                        if !self.exploreMapView.annotations.contains(where: {$0.coordinate == post.coordinate}) {
-                            postsPinsToAdd.append(post)
-                        }
-                    }
-                    
-                    self.exploreMapView.addAnnotations(mapPinsToAdd)
-                    self.exploreMapView.addAnnotations(postsPinsToAdd)
-                    
-                    self.dateFilter(begDate: self.begDateValue, endDate: self.endDateValue)
-                }
-            })
-        }
-    }
+//    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+//        guard let postAnnotations = self.postAnnotations else { return }
+//        var unseenAnnotations = exploreMapView.annotations
+//        for _ in unseenAnnotations {
+//            for postAnnotation in postAnnotations {
+//                if let postAnnotationIndex = unseenAnnotations.index(where: {$0.coordinate == postAnnotation.coordinate}) {
+//                    unseenAnnotations.remove(at: postAnnotationIndex)
+//                }
+//            }
+//
+//            for mapPin in mapPins {
+//                if let mapPinAnnotationIndex = unseenAnnotations.index(where: {$0.coordinate == mapPin.coordinate}) {
+//                    unseenAnnotations.remove(at: mapPinAnnotationIndex)
+//                }
+//            }
+//        }
+//        exploreMapView.removeAnnotations(unseenAnnotations)
+//        handleFetching()
+//    }
     
-    //    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-    //
-    //        var posts: [Post] = []
-    //
-    //        guard let postAnnotation = self.postAnnotation else { return }
-    //        var unseenAnnotations = detailMapView.annotations.filter({ !mapPins.compactMap({$0.coordinate}).contains($0.coordinate) })
-    //        for _ in unseenAnnotations {
-    //
-    //            for post in posts {
-    //
-    //                if let postAnnotationIndex = unseenAnnotations.index(where: {$0.coordinate == postAnnotation.coordinate}) {
-    //                    unseenAnnotations.remove(at: postAnnotationIndex)
-    //                }
-    //
-    //            }
-    //        }
-    //        detailMapView.removeAnnotations(unseenAnnotations)
-    //        handleFetching()
-    //    }
+        func handleFetching() {
+            MapPinController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: exploreMapView) { (mapPins) in
+                PostController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: self.exploreMapView, completion: { (posts) in
+                    DispatchQueue.main.async {
+                        self.mapPins = mapPins
+                        self.posts = posts
+    
+                        var mapPinsToAdd: [MapPin] = []
+                        for mapPin in mapPins {
+                            if !self.exploreMapView.annotations.contains(where: {$0.coordinate == mapPin.coordinate}) {
+                                mapPinsToAdd.append(mapPin)
+                            }
+                        }
+    
+                        var postsPinsToAdd: [Post] = []
+                        for post in posts {
+                            if !self.exploreMapView.annotations.contains(where: {$0.coordinate == post.coordinate}) {
+                                postsPinsToAdd.append(post)
+                            }
+                        }
+    
+                        self.exploreMapView.addAnnotations(mapPinsToAdd)
+                        self.exploreMapView.addAnnotations(postsPinsToAdd)
+    
+                        self.dateFilter(begDate: self.begDateValue, endDate: self.endDateValue)
+                    }
+                })
+            }
+        }
+    
+
+    
+    
+//    func handleFetching() {
+//
+//        PostController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: self.exploreMapView) { (posts) in
+//            DispatchQueue.main.async {
+//                self.posts = posts
+//                var postsPinsToAdd: [Post] = []
+//                for post in posts {
+//                    if !self.exploreMapView.annotations.contains(where: {$0.coordinate == post.coordinate}) {
+//                        postsPinsToAdd.append(post)
+//                    }
+//                }
+//                self.exploreMapView.addAnnotations(postsPinsToAdd)
+//                self.dateFilter(begDate: self.begDateValue, endDate: self.endDateValue)
+//            }
+//        }
+//
+//        MapPinController.shared.fetchAllMapPinGPSLocationWithinACertainArea(mapView: exploreMapView) { (mapPins) in
+//            DispatchQueue.main.async {
+//                self.mapPins = mapPins
+//                var mapPinsToAdd: [MapPin] = []
+//                for mapPin in mapPins {
+//                    if !self.exploreMapView.annotations.contains(where: {$0.coordinate == mapPin.coordinate}) {
+//                        mapPinsToAdd.append(mapPin)
+//                    }
+//                }
+//                self.exploreMapView.addAnnotations(mapPinsToAdd)
+//                self.dateFilter(begDate: self.begDateValue, endDate: self.endDateValue)
+//            }
+//        }
+//    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotation = annotation
@@ -452,16 +489,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         exploreMapView.setRegion(region, animated: true)
         self.exploreMapView.showsUserLocation = true
     }
-    
-    // MARK: - Navigation
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "toDetailVC" {
-    //            if let detailVC = segue.destination as? DetailViewController {
-    //                let post = self.post
-    //                detailVC.post = post
-    //            }
-    //        }
-    //    }    toMediaPlayerVC
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailVC" {

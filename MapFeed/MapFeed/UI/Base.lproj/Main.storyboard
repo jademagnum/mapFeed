@@ -530,10 +530,165 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6LM-Jc-2TN"/>
                     </view>
+                    <connections>
+                        <segue destination="oNX-cM-m5A" kind="show" identifier="toReportVC" id="t0b-0x-OsE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vei-79-wZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3398" y="537"/>
+        </scene>
+        <!--Report View Controller-->
+        <scene sceneID="EBL-eq-WBP">
+            <objects>
+                <viewController id="oNX-cM-m5A" customClass="ReportViewController" customModule="MapFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ge5-sE-OOG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ycn-dW-fU8">
+                                <rect key="frame" x="0.0" y="96" width="375" height="458"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cCu-eT-C2a">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="458"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YI-8f-qGY">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Me no likey"/>
+                                                <connections>
+                                                    <action selector="meNoLikeyButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="kmI-at-wkH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpE-Yn-Vnk">
+                                                <rect key="frame" x="0.0" y="91.5" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Nudity or pornography"/>
+                                                <connections>
+                                                    <action selector="nudityButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="qhz-f0-N0L"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJU-oj-lho">
+                                                <rect key="frame" x="0.0" y="183" width="187.5" height="92"/>
+                                                <state key="normal" title="Hate speech or symbols"/>
+                                                <connections>
+                                                    <action selector="hateSpeechButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="sip-RW-zkO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkY-mC-gck">
+                                                <rect key="frame" x="0.0" y="275" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Violence or threats"/>
+                                                <connections>
+                                                    <action selector="violenceButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="rXC-jJ-Q6n"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPT-xO-X5Z">
+                                                <rect key="frame" x="0.0" y="366.5" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Sale of firearms"/>
+                                                <connections>
+                                                    <action selector="firearmsButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="HVg-SA-BxW"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Vcd-yy-nGv">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="458"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fr2-bF-pDk">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Sale of drugs"/>
+                                                <connections>
+                                                    <action selector="drugsButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="4Hp-pK-b8p"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yl-QO-Z4f">
+                                                <rect key="frame" x="0.0" y="91.5" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Harassment or bullying"/>
+                                                <connections>
+                                                    <action selector="harassmentButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="jAP-j0-Zim"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pM7-sI-ibN">
+                                                <rect key="frame" x="0.0" y="183" width="187.5" height="92"/>
+                                                <state key="normal" title="Intellectual property"/>
+                                                <connections>
+                                                    <action selector="intellectualButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="6Pp-IU-RHM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DR-GH-H6C">
+                                                <rect key="frame" x="0.0" y="275" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Self injury"/>
+                                                <connections>
+                                                    <action selector="selfInjuryButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="m7X-Ln-6il"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97M-9M-Yw5">
+                                                <rect key="frame" x="0.0" y="366.5" width="187.5" height="91.5"/>
+                                                <state key="normal" title="Douchebaggery"/>
+                                                <connections>
+                                                    <action selector="doucheButtonTapped:" destination="oNX-cM-m5A" eventType="touchUpInside" id="VwR-da-US7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-Jb-eQy">
+                                <rect key="frame" x="-0.5" y="30" width="375" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="V83-TU-Tox"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ol-Pb-ghy">
+                                <rect key="frame" x="0.0" y="59.5" width="375" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="8ih-QF-nzz"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a reason for reporting this:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7T-MP-Ipi">
+                                <rect key="frame" x="0.0" y="68" width="375" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="64K-K0-clY">
+                                <rect key="frame" x="10" y="23" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="Egi-ST-kax"/>
+                                    <constraint firstAttribute="width" constant="36" id="bHr-7n-Osn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="64K-K0-clY" firstAttribute="centerY" secondItem="WM5-Jb-eQy" secondAttribute="centerY" id="8A6-fU-jIp"/>
+                            <constraint firstItem="r3F-5b-Biq" firstAttribute="bottom" secondItem="ycn-dW-fU8" secondAttribute="bottom" constant="20" id="8Cs-Ax-bc1"/>
+                            <constraint firstItem="6Ol-Pb-ghy" firstAttribute="top" secondItem="WM5-Jb-eQy" secondAttribute="bottom" constant="8" id="EWU-yp-rWA"/>
+                            <constraint firstItem="6Ol-Pb-ghy" firstAttribute="leading" secondItem="r3F-5b-Biq" secondAttribute="leading" id="HDG-k1-ugu"/>
+                            <constraint firstItem="i7T-MP-Ipi" firstAttribute="top" secondItem="6Ol-Pb-ghy" secondAttribute="bottom" constant="8" id="HhL-xE-37G"/>
+                            <constraint firstItem="64K-K0-clY" firstAttribute="leading" secondItem="r3F-5b-Biq" secondAttribute="leading" constant="10" id="Llm-VQ-dUh"/>
+                            <constraint firstItem="WM5-Jb-eQy" firstAttribute="top" secondItem="r3F-5b-Biq" secondAttribute="top" constant="10" id="Lwl-SQ-WRF"/>
+                            <constraint firstItem="r3F-5b-Biq" firstAttribute="trailing" secondItem="6Ol-Pb-ghy" secondAttribute="trailing" id="US6-gb-hQG"/>
+                            <constraint firstItem="WM5-Jb-eQy" firstAttribute="width" secondItem="ge5-sE-OOG" secondAttribute="width" id="UTw-v2-ocm"/>
+                            <constraint firstItem="i7T-MP-Ipi" firstAttribute="width" secondItem="ge5-sE-OOG" secondAttribute="width" id="VaB-aZ-t4v"/>
+                            <constraint firstItem="WM5-Jb-eQy" firstAttribute="centerX" secondItem="ge5-sE-OOG" secondAttribute="centerX" id="bcp-rd-Seh"/>
+                            <constraint firstItem="ycn-dW-fU8" firstAttribute="centerX" secondItem="ge5-sE-OOG" secondAttribute="centerX" id="kS2-Mn-uI3"/>
+                            <constraint firstItem="ycn-dW-fU8" firstAttribute="width" secondItem="ge5-sE-OOG" secondAttribute="width" id="mts-TJ-y6c"/>
+                            <constraint firstItem="ycn-dW-fU8" firstAttribute="top" secondItem="i7T-MP-Ipi" secondAttribute="bottom" constant="8" id="nf1-cU-BUK"/>
+                            <constraint firstItem="i7T-MP-Ipi" firstAttribute="centerX" secondItem="ge5-sE-OOG" secondAttribute="centerX" id="rzw-9M-EI5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="r3F-5b-Biq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Mb-Mc-Z3q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4172" y="536.58170914542734"/>
         </scene>
         <!--Add Annotation View Controller-->
         <scene sceneID="zi6-Qe-xZm">

@@ -25,6 +25,9 @@
 		27AB5AC72097BAF000CEC3E6 /* MediaViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */; };
 		27AB5AC92098BDB400CEC3E6 /* NicksCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AC82098BDB400CEC3E6 /* NicksCodeViewController.swift */; };
 		27AB5ACB2098DFB300CEC3E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACA2098DFB300CEC3E6 /* SettingsViewController.swift */; };
+		27AB5ACD209B6AAF00CEC3E6 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACC209B6AAF00CEC3E6 /* Report.swift */; };
+		27AB5ACF209B6DCD00CEC3E6 /* ReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACE209B6DCD00CEC3E6 /* ReportController.swift */; };
+		27AB5AD1209B887400CEC3E6 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */; };
 		27C93FEA208949B300C19E9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C93FE9208949B300C19E9D /* MapKit.framework */; };
 		27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FEB20894B3500C19E9D /* MapViewController.swift */; };
 		27C93FEE2089511E00C19E9D /* PostAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FED2089511E00C19E9D /* PostAnnotation.swift */; };
@@ -71,6 +74,9 @@
 		27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewerViewController.swift; sourceTree = "<group>"; };
 		27AB5AC82098BDB400CEC3E6 /* NicksCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicksCodeViewController.swift; sourceTree = "<group>"; };
 		27AB5ACA2098DFB300CEC3E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		27AB5ACC209B6AAF00CEC3E6 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		27AB5ACE209B6DCD00CEC3E6 /* ReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportController.swift; sourceTree = "<group>"; };
+		27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		27C93FE9208949B300C19E9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		27C93FEB20894B3500C19E9D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		27C93FED2089511E00C19E9D /* PostAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotation.swift; sourceTree = "<group>"; };
@@ -168,6 +174,7 @@
 				2781C3732086A87E00CCA1AD /* Comment.swift */,
 				2781C3752086A8D500CCA1AD /* Like.swift */,
 				27C93FED2089511E00C19E9D /* PostAnnotation.swift */,
+				27AB5ACC209B6AAF00CEC3E6 /* Report.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +193,7 @@
 				2781C37E2087AB3B00CCA1AD /* UserController.swift */,
 				2781C3812087AB5800CCA1AD /* PostController.swift */,
 				278349EB2091441300807C49 /* MapPinController.swift */,
+				27AB5ACE209B6DCD00CEC3E6 /* ReportController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -215,6 +223,7 @@
 				27C93FF9208E81ED00C19E9D /* HomeFeedTableViewCell.swift */,
 				27C93FFB208E822800C19E9D /* HomeFeedCollectionViewCell.swift */,
 				27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */,
+				27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */,
 				27AB5AC82098BDB400CEC3E6 /* NicksCodeViewController.swift */,
 				27C940052090EE4600C19E9D /* Camera */,
 			);
@@ -321,6 +330,7 @@
 			files = (
 				27C93FF6208E481E00C19E9D /* UserPostsTableViewCell.swift in Sources */,
 				27C93FEE2089511E00C19E9D /* PostAnnotation.swift in Sources */,
+				27AB5AD1209B887400CEC3E6 /* ReportViewController.swift in Sources */,
 				27C93FFA208E81ED00C19E9D /* HomeFeedTableViewCell.swift in Sources */,
 				2781C3762086A8D500CCA1AD /* Like.swift in Sources */,
 				2781C3822087AB5800CCA1AD /* PostController.swift in Sources */,
@@ -332,6 +342,7 @@
 				27C93FF4208E46E700C19E9D /* ProfileViewController.swift in Sources */,
 				27F2380E20892BA0001E379B /* AddPostViewController.swift in Sources */,
 				2781C3742086A87E00CCA1AD /* Comment.swift in Sources */,
+				27AB5ACF209B6DCD00CEC3E6 /* ReportController.swift in Sources */,
 				27C940182090F3FE00C19E9D /* Orientation.swift in Sources */,
 				27C9401A2090F3FE00C19E9D /* SwiftyCamViewController.swift in Sources */,
 				2781C37A2086AF0400CCA1AD /* MapPin.swift in Sources */,
@@ -342,6 +353,7 @@
 				2781C3702086877200CCA1AD /* User.swift in Sources */,
 				27C940192090F3FE00C19E9D /* PreviewView.swift in Sources */,
 				2781C3722086884700CCA1AD /* Post.swift in Sources */,
+				27AB5ACD209B6AAF00CEC3E6 /* Report.swift in Sources */,
 				27AB5ACB2098DFB300CEC3E6 /* SettingsViewController.swift in Sources */,
 				27C93FF0208A5FBE00C19E9D /* AddAnnotationViewController.swift in Sources */,
 				27C940202090FDC400C19E9D /* SwiftyRecordButton.swift in Sources */,

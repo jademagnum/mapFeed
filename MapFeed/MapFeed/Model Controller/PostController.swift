@@ -72,13 +72,13 @@ class PostController {
         let span: MKCoordinateSpan = mapView.region.span
         let center: CLLocationCoordinate2D = mapView.region.center
         //This is the farthest Lat point to the left
-        let farthestLeft = center.latitude + span.latitudeDelta * 0.5
+        let farthestLeft = center.latitude + span.latitudeDelta * 1.0
         //This is the farthest Lat point to the right
-        let farthestRight = center.latitude - span.latitudeDelta * 0.5
+        let farthestRight = center.latitude - span.latitudeDelta * 1.0
         //This is the farthest Long point to the top
-        let farthestTop = center.longitude + span.longitudeDelta * 0.5
+        let farthestTop = center.longitude + span.longitudeDelta * 1.0
         //This is the farthest Long point to the bottom
-        let farthestBottom = center.longitude - span.longitudeDelta * 0.5
+        let farthestBottom = center.longitude - span.longitudeDelta * 1.0
         
         let predicate1 = NSPredicate(format: "gpsLatitude < %lf", farthestLeft)
         let predicate2 = NSPredicate(format: "gpsLatitude > %lf", farthestRight)
