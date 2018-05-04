@@ -132,10 +132,19 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
             self.performSegue(withIdentifier: "toReportVC", sender: self)
             
         }
+        let secondAction = UIAlertAction(title: "Block", style: .default) { (report) in
+            
+            guard let mapPin = self.mapPin else { return }
+            UserController.shared.userToBlock(blockUserRef: mapPin.reference, completion: { (true) in
+                
+            })
+            
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
         }
         
         actionSheetController.addAction(firstAction)
+        actionSheetController.addAction(secondAction)
         actionSheetController.addAction(cancelAction)
         
         present(actionSheetController, animated: true, completion: nil)

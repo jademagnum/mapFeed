@@ -15,6 +15,13 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     @IBOutlet weak var postWebView: WKWebView!
     @IBOutlet weak var detailMapView: MKMapView!
     
+    @IBAction func likeButtonTapped(_ sender: Any) {
+    }
+    @IBAction func commentButtonTapped(_ sender: Any) {
+    }
+    @IBAction func reportButtonTapped(_ sender: Any) {
+    }
+    
     var post: Post?
     var mapPins: [MapPin] = []
     var postAnnotation: MKPointAnnotation?

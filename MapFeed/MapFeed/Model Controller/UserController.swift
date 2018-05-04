@@ -45,8 +45,8 @@ class UserController {
             
             let appleUserRef = CKReference(recordID: appleUserRecordID, action: .deleteSelf)
             
-            
-            let user = User(username: username, email: email, appleUserRef: appleUserRef)
+            let blockUserRef = self.currentUser?.blockedUserRefs
+            let user = User(username: username, email: email, appleUserRef: appleUserRef, blockedUserRefs: blockUserRef ?? [])
             
             let userRecord = user.cloudKitRecord
             
@@ -156,6 +156,22 @@ class UserController {
             completion(true)
         }
         CKContainer.default().publicCloudDatabase.add(op)
+    }
+    
+    func userToBlock(blockUserRef: CKReference, completion: @escaping (_ success: Bool) -> Void) {
+        self.currentUser?.blockedUserRefs.append(blockUserRef)
+        guard let currentUser = self.currentUser else { return }
+            let userRecord = currentUser.cloudKitRecord
+        
+        cloudKitManager.modifyRecords([userRecord], perRecordCompletion: nil) { (records, error) in
+            if let error = error {
+                print("\(#function), \(error), \(error.localizedDescription)")
+                completion(false); return
+            } else {
+                print("Blocked a user")
+                completion(true)
+            }
+        }
     }
     
 }

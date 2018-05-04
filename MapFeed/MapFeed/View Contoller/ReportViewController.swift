@@ -84,13 +84,10 @@ class ReportViewController: UIViewController {
         reportActionSheet()
     }
     
-    
-
     @objc func cancel() {
         dismiss(animated: true, completion: nil)
     }
 
-    
     func reportActionSheet() {
         let actionSheetController = UIAlertController(title: "Report", message: "Report Post", preferredStyle: .actionSheet)
         let firstAction = UIAlertAction(title: "Report", style: .default) { (report) in
@@ -110,6 +107,4 @@ class ReportViewController: UIViewController {
         
         present(actionSheetController, animated: true, completion: nil)
     }
-
-
 }

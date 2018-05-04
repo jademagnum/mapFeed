@@ -48,15 +48,15 @@ class MapPinController {
         }
     }
     
-    func fetchAllMapPins(completion: @escaping ([MapPin]) -> Void) {
-        
-        cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, database: publicDB) { (records, error) in
-            guard let records = records else { return }
-            
-            let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0, user: nil) })
-            completion(mapPins)
-        }
-    }
+//    func fetchAllMapPins(completion: @escaping ([MapPin]) -> Void) {
+//
+//        cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, database: publicDB) { (records, error) in
+//            guard let records = records else { return }
+//
+//            let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0, user: nil) })
+//            completion(mapPins)
+//        }
+//    }
     
     func fetchMapPinWithCKRecord(cKRecord: CKRecordID ,completion: @escaping (MapPin?) -> Void) {
         cloudKitManager.fetchRecord(withID: cKRecord) { (record, error) in
@@ -107,8 +107,13 @@ class MapPinController {
         let predicate2 = NSPredicate(format: "gpsLatitude > %lf", farthestRight)
         let predicate3 = NSPredicate(format: "gpsLongitude < %lf", farthestTop)
         let predicate4 = NSPredicate(format: "gpsLongitude > %lf", farthestBottom)
+        guard let user = UserController.shared.currentUser else { return }
+        let blockedUserRefs = user.blockedUserRefs
         
-        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2, predicate3, predicate4])
+        let predicate5 = NSPredicate(format: "NOT(userReference IN %@)", blockedUserRefs)
+        
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2, predicate3, predicate4, predicate5])
         
         let query = CKQuery(recordType: MapPin.typeKey, predicate: compoundPredicate)
 //        let query = CKQuery(recordType: MapPin.typeKey, predicate: NSPredicate(value: true))
@@ -127,13 +132,6 @@ class MapPinController {
         }
         
         publicDB.add(ckQueryOperation)
-        
-//        cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, predicate: <#T##NSPredicate#>, database: publicDB) { (records, error) in
-//            if let error = error { print(error.localizedDescription) }
-//            guard let records = records else { return }
-//
- //           let mapPins = records.compactMap({MapPin(cloudKitRecord: $0, user: nil)})
-//        }
     }
     
     func fetchAllMapPinGPSLocationWithinMapViewAndCertainTime(mapView: MKMapView, timestamp: Date, completion: @escaping ([MapPin]) -> Void) {
@@ -180,21 +178,21 @@ class MapPinController {
         publicDB.add(ckQueryOperation)
     }
     
-    func fetchMapPins(user: User, completion: @escaping () -> Void) {
-        guard let userRecordID = user.cloudKitRecordID else { completion(); return }
-        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
-        let predicate = NSPredicate(format: "userReference == %@", userReference)
-        
-        cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, predicate: predicate, database: publicDB) { (records, error) in
-            if let error = error { print(error.localizedDescription) }
-            guard let records = records else { completion(); return }
-            let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0, user: user )})
-            self.mapPins = mapPins
-            for mapPin in mapPins {
-                mapPin.user?.mapPins = mapPins
-            
-            }
-            completion()
-        }
-    }
+//    func fetchMapPins(user: User, completion: @escaping () -> Void) {
+//        guard let userRecordID = user.cloudKitRecordID else { completion(); return }
+//        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
+//        let predicate = NSPredicate(format: "userReference == %@", userReference)
+//
+//        cloudKitManager.fetchRecordsOf(type: MapPin.typeKey, predicate: predicate, database: publicDB) { (records, error) in
+//            if let error = error { print(error.localizedDescription) }
+//            guard let records = records else { completion(); return }
+//            let mapPins = records.compactMap({ MapPin(cloudKitRecord: $0, user: user )})
+//            self.mapPins = mapPins
+//            for mapPin in mapPins {
+//                mapPin.user?.mapPins = mapPins
+//
+//            }
+//            completion()
+//        }
+//    }
 }
