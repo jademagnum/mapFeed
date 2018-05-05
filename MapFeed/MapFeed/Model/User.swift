@@ -85,9 +85,22 @@ class User {
     }
 }
 
-
-
-
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.username != rhs.username { return false}
+        if lhs.email != rhs.email { return false}
+        if lhs.firstName != rhs.firstName { return false}
+        if lhs.lastName != rhs.lastName { return false}
+        if lhs.bio != rhs.bio { return false}
+        if lhs.link != rhs.link { return false}
+        if lhs.posts != rhs.posts { return false}
+        if lhs.mapPins != rhs.mapPins { return false}
+        if lhs.blockedUserRefs != rhs.blockedUserRefs { return false}
+        if lhs.appleUserRef != rhs.appleUserRef { return false}
+        if lhs.cloudKitRecordID != rhs.cloudKitRecordID { return false}
+        return true
+    }
+}
 
 
 

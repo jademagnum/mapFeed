@@ -135,8 +135,16 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
         let secondAction = UIAlertAction(title: "Block", style: .default) { (report) in
             
             guard let mapPin = self.mapPin else { return }
-            UserController.shared.userToBlock(blockUserRef: mapPin.reference, completion: { (true) in
+            UserController.shared.userToBlock(blockUserRef: mapPin.reference, completion: { (success) in
                 
+                if !success {
+                    let currentUserRef = UserController.shared.currentUser?.cloudKitRecordID
+                    if mapPin.reference.recordID == currentUserRef {
+                    self.showAlertMessage(titleStr: "You cannot block yourself silly", messageStr: "Block users that you don't want to see again... Like your Mother-in-Law")
+                    } else {
+                        self.showAlertMessage(titleStr: "Cannot Block User", messageStr: "Please try again")
+                    }
+                }
             })
             
         }

@@ -34,7 +34,7 @@ class ReportController {
         
         guard let mediaID = mediaIDToReport else { completion(nil); return }
         
-        let mediaRef = CKReference(recordID: mediaID, action: .deleteSelf)
+        let mediaRef = CKReference(recordID: mediaID, action: .none)
         
         let report = Report(post: post, mapPin: mapPin, reportedFor: reportedFor, mediaRef: mediaRef)
         reports.append(report)

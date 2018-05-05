@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import UIKit
 
 class UserController {
     
@@ -43,9 +44,10 @@ class UserController {
         CKContainer.default().fetchUserRecordID { (appleUserRecordID, error) in
             guard let appleUserRecordID = appleUserRecordID else { return }
             
-            let appleUserRef = CKReference(recordID: appleUserRecordID, action: .deleteSelf)
+            let appleUserRef = CKReference(recordID: appleUserRecordID, action: .none)
             
             let blockUserRef = self.currentUser?.blockedUserRefs
+            
             let user = User(username: username, email: email, appleUserRef: appleUserRef, blockedUserRefs: blockUserRef ?? [])
             
             let userRecord = user.cloudKitRecord
@@ -67,7 +69,7 @@ class UserController {
             
             guard let appleRecordID = appleRecordID else { completion(false); return }
             
-            let appleUserReference = CKReference(recordID: appleRecordID, action: .deleteSelf)
+            let appleUserReference = CKReference(recordID: appleRecordID, action: .none)
             
             let predicate = NSPredicate(format: "appleUserRef == %@", appleUserReference)
             
@@ -81,12 +83,37 @@ class UserController {
         }
     }
     
+    func fetchBlockedUsers(blockedUserReferences: [CKReference], completion: @escaping (_ blockedUsers: [User]) -> Void = { _ in }) {
+        
+        var blockedUsers: [User] = []
+        let dispatchGroup = DispatchGroup()
+        for reference in blockedUserReferences {
+            dispatchGroup.enter()
+            CKContainer.default().publicCloudDatabase.fetch(withRecordID: reference.recordID) { (record, error) in
+                if let error = error { print(error.localizedDescription) }
+                
+                guard let record = record,
+                    let blockedUser = User(cloudKitRecord: record) else { dispatchGroup.leave(); return }
+                
+                blockedUsers.append(blockedUser)
+                
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+            self.users = blockedUsers
+            completion(self.users)
+        }
+    }
+    
+    
+    
     func fetchAllUsers(completion: @escaping (_ success: Bool) -> Void = { _ in }) {
         CKContainer.default().fetchUserRecordID { (appleRecordID, error) in
             
             if let error = error { print(error.localizedDescription) }
             
-//            guard let appleRecordID = appleRecordID else { completion(false); return }
+            //            guard let appleRecordID = appleRecordID else { completion(false); return }
             
             let predicate = NSPredicate(value: true)
             
@@ -94,7 +121,7 @@ class UserController {
                 if let error = error { print(error.localizedDescription) }
                 guard let records = records else { completion(false); return}
                 let users = records.compactMap{User(cloudKitRecord: $0)}
-//                guard let user = self.currentUser else { return }
+                //                guard let user = self.currentUser else { return }
                 let dispatchGroup = DispatchGroup()
                 for user in users {
                     dispatchGroup.enter()
@@ -119,8 +146,8 @@ class UserController {
         
         // The predicat of value Ture means everyting. (what we deleted) "expensive"
         /// This predicat is only going to get the user refs
-        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
-
+        let userReference = CKReference(recordID: userRecordID, action: .none)
+        
         let predicate = NSPredicate(format: "userRef == %@", userReference)
         
         CloudKitManager.shared.fetchRecordsOf(type: Post.typeKey, predicate: predicate, database: publicDB) { (records, error) in
@@ -158,10 +185,48 @@ class UserController {
         CKContainer.default().publicCloudDatabase.add(op)
     }
     
+    func updateCurrentUserBlockedUser(blockedUserRefs: [CKReference], completion: @escaping (_ success: Bool) -> Void ) {
+        
+        guard let currentUser = currentUser else { completion(false); return }
+    
+        currentUser.blockedUserRefs = blockedUserRefs
+        
+        let currentUserRecord = currentUser.cloudKitRecord
+        
+        let op = CKModifyRecordsOperation(recordsToSave: [currentUserRecord], recordIDsToDelete: nil)
+        
+        op.modifyRecordsCompletionBlock = { ( _, _, error) in
+            if let error = error { print(error.localizedDescription) }
+            completion(true)
+        }
+        CKContainer.default().publicCloudDatabase.add(op)
+    }
+    
+    //    func userToBlock(blockUserRef: CKReference, completion: @escaping (_ success: Bool) -> Void) {
+    //        self.currentUser?.blockedUserRefs.append(blockUserRef)
+    //        guard let currentUser = self.currentUser else { return }
+    //            let userRecord = currentUser.cloudKitRecord
+    //
+    //        cloudKitManager.modifyRecords([userRecord], perRecordCompletion: nil) { (records, error) in
+    //            if let error = error {
+    //                print("\(#function), \(error), \(error.localizedDescription)")
+    //                completion(false); return
+    //            } else {
+    //                print("Blocked a user")
+    //                completion(true)
+    //            }
+    //        }
+    //    }
+    
     func userToBlock(blockUserRef: CKReference, completion: @escaping (_ success: Bool) -> Void) {
-        self.currentUser?.blockedUserRefs.append(blockUserRef)
+        if currentUser?.cloudKitRecordID?.recordName != blockUserRef.recordID.recordName {
+            self.currentUser?.blockedUserRefs.append(blockUserRef)
+        } else {
+            completion(false)
+            return
+        }
         guard let currentUser = self.currentUser else { return }
-            let userRecord = currentUser.cloudKitRecord
+        let userRecord = currentUser.cloudKitRecord
         
         cloudKitManager.modifyRecords([userRecord], perRecordCompletion: nil) { (records, error) in
             if let error = error {
@@ -173,9 +238,7 @@ class UserController {
             }
         }
     }
-    
 }
-
 
 
 

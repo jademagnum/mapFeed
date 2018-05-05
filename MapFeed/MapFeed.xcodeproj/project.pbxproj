@@ -28,6 +28,9 @@
 		27AB5ACD209B6AAF00CEC3E6 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACC209B6AAF00CEC3E6 /* Report.swift */; };
 		27AB5ACF209B6DCD00CEC3E6 /* ReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACE209B6DCD00CEC3E6 /* ReportController.swift */; };
 		27AB5AD1209B887400CEC3E6 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */; };
+		27AB5AD3209CC00E00CEC3E6 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD2209CC00E00CEC3E6 /* AlertExtension.swift */; };
+		27AB5AD5209CF80900CEC3E6 /* UnblockUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD4209CF80900CEC3E6 /* UnblockUserViewController.swift */; };
+		27AB5AD7209CFFE200CEC3E6 /* BlockedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */; };
 		27C93FEA208949B300C19E9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C93FE9208949B300C19E9D /* MapKit.framework */; };
 		27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FEB20894B3500C19E9D /* MapViewController.swift */; };
 		27C93FEE2089511E00C19E9D /* PostAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FED2089511E00C19E9D /* PostAnnotation.swift */; };
@@ -77,6 +80,9 @@
 		27AB5ACC209B6AAF00CEC3E6 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		27AB5ACE209B6DCD00CEC3E6 /* ReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportController.swift; sourceTree = "<group>"; };
 		27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		27AB5AD2209CC00E00CEC3E6 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
+		27AB5AD4209CF80900CEC3E6 /* UnblockUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnblockUserViewController.swift; sourceTree = "<group>"; };
+		27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedTableViewCell.swift; sourceTree = "<group>"; };
 		27C93FE9208949B300C19E9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		27C93FEB20894B3500C19E9D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		27C93FED2089511E00C19E9D /* PostAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotation.swift; sourceTree = "<group>"; };
@@ -203,6 +209,7 @@
 			children = (
 				2781C3832087B9F300CCA1AD /* CloudKitManager.swift */,
 				27F2380F2089378D001E379B /* shiftableViewController.swift */,
+				27AB5AD2209CC00E00CEC3E6 /* AlertExtension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -225,6 +232,8 @@
 				27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */,
 				27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */,
 				27AB5AC82098BDB400CEC3E6 /* NicksCodeViewController.swift */,
+				27AB5AD4209CF80900CEC3E6 /* UnblockUserViewController.swift */,
+				27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */,
 				27C940052090EE4600C19E9D /* Camera */,
 			);
 			path = "View Contoller";
@@ -334,7 +343,9 @@
 				27C93FFA208E81ED00C19E9D /* HomeFeedTableViewCell.swift in Sources */,
 				2781C3762086A8D500CCA1AD /* Like.swift in Sources */,
 				2781C3822087AB5800CCA1AD /* PostController.swift in Sources */,
+				27AB5AD5209CF80900CEC3E6 /* UnblockUserViewController.swift in Sources */,
 				2781C38A2087ED2200CCA1AD /* WelcomeViewController.swift in Sources */,
+				27AB5AD3209CC00E00CEC3E6 /* AlertExtension.swift in Sources */,
 				27F238102089378D001E379B /* shiftableViewController.swift in Sources */,
 				27C94024209113A900C19E9D /* VideoViewController.swift in Sources */,
 				27C9401B2090F3FE00C19E9D /* SwiftyCamButton.swift in Sources */,
@@ -363,6 +374,7 @@
 				27AB5AC92098BDB400CEC3E6 /* NicksCodeViewController.swift in Sources */,
 				27AB5AC72097BAF000CEC3E6 /* MediaViewerViewController.swift in Sources */,
 				27C9401E2090F43B00C19E9D /* CameraViewController.swift in Sources */,
+				27AB5AD7209CFFE200CEC3E6 /* BlockedTableViewCell.swift in Sources */,
 				2781C3842087B9F300CCA1AD /* CloudKitManager.swift in Sources */,
 				27C93FF8208E7FBF00C19E9D /* HomeFeedViewController.swift in Sources */,
 				27C940222091135B00C19E9D /* PhotoViewController.swift in Sources */,

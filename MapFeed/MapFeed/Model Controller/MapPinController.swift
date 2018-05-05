@@ -26,7 +26,7 @@ class MapPinController {
     
     func createMapPinWithMediaData(user: User, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), mediaData: Data, completion: @escaping ((MapPin?) -> Void)){
         guard let userID = user.cloudKitRecordID else { return }
-        let userRef = CKReference(recordID: userID, action: .deleteSelf)
+        let userRef = CKReference(recordID: userID, action: .none)
         
         let mapPin = MapPin(user: user, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, reference: userRef, timestamp: timestamp, mediaData: mediaData)
         mapPins.append(mapPin)
