@@ -25,7 +25,7 @@ class PostController {
     func createPostWith(user: User, headline: String, url: String, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), completion: @escaping ((Post?) -> Void)){
         guard let userID = user.cloudKitRecordID else { return }
         
-        let userRef = CKReference(recordID: userID, action: .none)
+        let userRef = CKReference(recordID: userID, action: .deleteSelf)
     
         let post = Post(user: user, headline: headline, url: url, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, userRef: userRef)
         posts.append(post)
@@ -50,7 +50,7 @@ class PostController {
     
     func fetchPosts(user: User, completion: @escaping () -> Void) {
         guard let userRecordID = user.cloudKitRecordID else { completion(); return }
-        let userReference = CKReference(recordID: userRecordID, action: .none)
+        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
         let predicate = NSPredicate(format: "userRef == %@", userReference)
         
         cloudKitManager.fetchRecordsOf(type: Post.typeKey, predicate: predicate, database: publicDB) { (records, error) in

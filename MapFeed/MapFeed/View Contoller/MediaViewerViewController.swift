@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import AVKit
 import MapKit
+import CloudKit
 
 class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -135,7 +136,10 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
         let secondAction = UIAlertAction(title: "Block", style: .default) { (report) in
             
             guard let mapPin = self.mapPin else { return }
-            UserController.shared.userToBlock(blockUserRef: mapPin.reference, completion: { (success) in
+            
+            let userToBlockRef = CKReference(recordID: mapPin.reference.recordID, action: .none)
+            
+            UserController.shared.userToBlock(blockUserRef: userToBlockRef, completion: { (success) in
                 
                 if !success {
                     let currentUserRef = UserController.shared.currentUser?.cloudKitRecordID

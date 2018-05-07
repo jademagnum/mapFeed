@@ -47,7 +47,7 @@ class Report {
         
         if let post = post,
             let postRecordID = post.cloudKitRecordID {
-            let postReference = CKReference(recordID: postRecordID, action: .none)
+            let postReference = CKReference(recordID: postRecordID, action: .deleteSelf)
             record.setValue(postReference, forKey: mediaRefKey)
         } else {
             record.setValue(mediaRef, forKey: mediaRefKey)
@@ -55,7 +55,7 @@ class Report {
         
         if let mapPin = mapPin,
             let mapPinRecordID = mapPin.cloudKitRecordID {
-            let mapPinReference = CKReference(recordID: mapPinRecordID, action: .none)
+            let mapPinReference = CKReference(recordID: mapPinRecordID, action: .deleteSelf)
             record.setValue(mapPinReference, forKey: mediaRefKey)
         } else {
             record.setValue(mediaRef, forKey: mediaRefKey)

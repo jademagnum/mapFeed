@@ -402,6 +402,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
                 mkMarkerAnnotationView.canShowCallout = true
                 mkMarkerAnnotationView.calloutOffset = CGPoint(x: -5, y: 5)
                 mkMarkerAnnotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+                mkMarkerAnnotationView.frame.width
                 
             } else {
                 mkMarkerAnnotationView.markerTintColor = UIColor.black

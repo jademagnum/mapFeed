@@ -6,177 +6,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/UnblockUserViewController.swift"
-            timestampString = "547236897.736169"
+            filePath = "MapFeed/View Contoller/MediaViewerViewController.swift"
+            timestampString = "547423392.911458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "report()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapFeed/View Contoller/MediaViewerViewController.swift"
+            timestampString = "547423392.911698"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "report()"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__ObjC.UIAlertAction) -&gt; () in MapFeed.UnblockUserViewController.tableView(__ObjC.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  symbolName = "closure #2 (__ObjC.UIAlertAction) -&gt; () in MapFeed.MediaViewerViewController.report() -&gt; ()"
                   moduleName = "MapFeed"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/UnblockUserViewController.swift"
-                  timestampString = "547236897.94192"
+                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/MediaViewerViewController.swift"
+                  timestampString = "547421731.88949"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70"
-                  offsetFromSymbolStart = "1800">
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "256">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Bool) -&gt; () in closure #1 (__ObjC.UIAlertAction) -&gt; () in MapFeed.UnblockUserViewController.tableView(__ObjC.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  symbolName = "closure #1 (Swift.Bool) -&gt; () in closure #2 (__ObjC.UIAlertAction) -&gt; () in MapFeed.MediaViewerViewController.report() -&gt; ()"
                   moduleName = "MapFeed"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/UnblockUserViewController.swift"
-                  timestampString = "547236897.945841"
+                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/MediaViewerViewController.swift"
+                  timestampString = "547421731.896197"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "71"
-                  endingLineNumber = "71"
-                  offsetFromSymbolStart = "28">
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "32">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/UnblockUserViewController.swift"
-            timestampString = "547236897.737069"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Bool) -&gt; () in closure #1 (__ObjC.UIAlertAction) -&gt; () in MapFeed.UnblockUserViewController.tableView(__ObjC.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "MapFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/UnblockUserViewController.swift"
-                  timestampString = "547236897.958095"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #2 (Swift.Bool) -&gt; () in closure #1 (__ObjC.UIAlertAction) -&gt; () in MapFeed.UnblockUserViewController.tableView(__ObjC.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "MapFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jadethomason/Desktop/MapFeed/MapFeed/MapFeed/View%20Contoller/UnblockUserViewController.swift"
-                  timestampString = "547236897.962293"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/UnblockUserViewController.swift"
-            timestampString = "547236897.737675"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/UnblockUserViewController.swift"
-            timestampString = "547236897.738624"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/UnblockUserViewController.swift"
-            timestampString = "547236897.739448"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/UnblockUserViewController.swift"
-            timestampString = "547236897.740059"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapFeed/View Contoller/UnblockUserViewController.swift"
-            timestampString = "547236897.740621"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

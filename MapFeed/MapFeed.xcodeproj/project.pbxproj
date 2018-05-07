@@ -31,6 +31,8 @@
 		27AB5AD3209CC00E00CEC3E6 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD2209CC00E00CEC3E6 /* AlertExtension.swift */; };
 		27AB5AD5209CF80900CEC3E6 /* UnblockUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD4209CF80900CEC3E6 /* UnblockUserViewController.swift */; };
 		27AB5AD7209CFFE200CEC3E6 /* BlockedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */; };
+		27AB5AD9209F5D1C00CEC3E6 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD8209F5D1C00CEC3E6 /* ColorHelper.swift */; };
+		27AB5ADB20A0F8F800CEC3E6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ADA20A0F8F800CEC3E6 /* SettingsTableViewController.swift */; };
 		27C93FEA208949B300C19E9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C93FE9208949B300C19E9D /* MapKit.framework */; };
 		27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FEB20894B3500C19E9D /* MapViewController.swift */; };
 		27C93FEE2089511E00C19E9D /* PostAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FED2089511E00C19E9D /* PostAnnotation.swift */; };
@@ -83,6 +85,8 @@
 		27AB5AD2209CC00E00CEC3E6 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		27AB5AD4209CF80900CEC3E6 /* UnblockUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnblockUserViewController.swift; sourceTree = "<group>"; };
 		27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedTableViewCell.swift; sourceTree = "<group>"; };
+		27AB5AD8209F5D1C00CEC3E6 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
+		27AB5ADA20A0F8F800CEC3E6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		27C93FE9208949B300C19E9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		27C93FEB20894B3500C19E9D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		27C93FED2089511E00C19E9D /* PostAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotation.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 				2781C3832087B9F300CCA1AD /* CloudKitManager.swift */,
 				27F2380F2089378D001E379B /* shiftableViewController.swift */,
 				27AB5AD2209CC00E00CEC3E6 /* AlertExtension.swift */,
+				27AB5AD8209F5D1C00CEC3E6 /* ColorHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 				27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */,
 				27AB5AC82098BDB400CEC3E6 /* NicksCodeViewController.swift */,
 				27AB5AD4209CF80900CEC3E6 /* UnblockUserViewController.swift */,
+				27AB5ADA20A0F8F800CEC3E6 /* SettingsTableViewController.swift */,
 				27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */,
 				27C940052090EE4600C19E9D /* Camera */,
 			);
@@ -356,6 +362,7 @@
 				27AB5ACF209B6DCD00CEC3E6 /* ReportController.swift in Sources */,
 				27C940182090F3FE00C19E9D /* Orientation.swift in Sources */,
 				27C9401A2090F3FE00C19E9D /* SwiftyCamViewController.swift in Sources */,
+				27AB5AD9209F5D1C00CEC3E6 /* ColorHelper.swift in Sources */,
 				2781C37A2086AF0400CCA1AD /* MapPin.swift in Sources */,
 				2781C3872087E4BC00CCA1AD /* SignUpViewController.swift in Sources */,
 				27C9401C2090F3FE00C19E9D /* SwiftyCamViewControllerDelegate.swift in Sources */,
@@ -370,6 +377,7 @@
 				27C940202090FDC400C19E9D /* SwiftyRecordButton.swift in Sources */,
 				27C93FFC208E822800C19E9D /* HomeFeedCollectionViewCell.swift in Sources */,
 				278349EC2091441300807C49 /* MapPinController.swift in Sources */,
+				27AB5ADB20A0F8F800CEC3E6 /* SettingsTableViewController.swift in Sources */,
 				27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */,
 				27AB5AC92098BDB400CEC3E6 /* NicksCodeViewController.swift in Sources */,
 				27AB5AC72097BAF000CEC3E6 /* MediaViewerViewController.swift in Sources */,

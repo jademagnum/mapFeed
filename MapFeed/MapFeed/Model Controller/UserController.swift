@@ -44,7 +44,7 @@ class UserController {
         CKContainer.default().fetchUserRecordID { (appleUserRecordID, error) in
             guard let appleUserRecordID = appleUserRecordID else { return }
             
-            let appleUserRef = CKReference(recordID: appleUserRecordID, action: .none)
+            let appleUserRef = CKReference(recordID: appleUserRecordID, action: .deleteSelf)
             
             let blockUserRef = self.currentUser?.blockedUserRefs
             
@@ -69,7 +69,7 @@ class UserController {
             
             guard let appleRecordID = appleRecordID else { completion(false); return }
             
-            let appleUserReference = CKReference(recordID: appleRecordID, action: .none)
+            let appleUserReference = CKReference(recordID: appleRecordID, action: .deleteSelf)
             
             let predicate = NSPredicate(format: "appleUserRef == %@", appleUserReference)
             
@@ -146,7 +146,7 @@ class UserController {
         
         // The predicat of value Ture means everyting. (what we deleted) "expensive"
         /// This predicat is only going to get the user refs
-        let userReference = CKReference(recordID: userRecordID, action: .none)
+        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
         
         let predicate = NSPredicate(format: "userRef == %@", userReference)
         
@@ -185,11 +185,10 @@ class UserController {
         CKContainer.default().publicCloudDatabase.add(op)
     }
     
-    func updateCurrentUserBlockedUser(blockedUserRefs: [CKReference], completion: @escaping (_ success: Bool) -> Void ) {
+    
+    func updateCurrentUserBlockedUser(completion: @escaping (_ success: Bool) -> Void ) {
         
         guard let currentUser = currentUser else { completion(false); return }
-    
-        currentUser.blockedUserRefs = blockedUserRefs
         
         let currentUserRecord = currentUser.cloudKitRecord
         

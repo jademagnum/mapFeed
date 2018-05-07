@@ -91,7 +91,7 @@ class Post: NSObject, MKAnnotation {
         
         if let user = user,
             let userRecordID = user.cloudKitRecordID {
-            let userReference = CKReference(recordID: userRecordID, action: .none)
+            let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
             record.setValue(userReference, forKey: userRefKey)
         } else {
             record.setValue(userRef, forKey: userRefKey)
