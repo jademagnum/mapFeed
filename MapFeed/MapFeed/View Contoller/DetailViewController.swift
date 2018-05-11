@@ -10,10 +10,11 @@ import UIKit
 import WebKit
 import MapKit
 
-class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var postWebView: WKWebView!
     @IBOutlet weak var detailMapView: MKMapView!
+    
     
     @IBAction func likeButtonTapped(_ sender: Any) {
     }
@@ -29,6 +30,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
         webView()
         loadMapPoints()
         
@@ -41,6 +43,13 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         detailMapView.delegate = self
         
         mapView(detailMapView, regionDidChangeAnimated: true)
+        
+        setupViews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -77,6 +86,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         guard let url = URL(string: "\(postURL)") else { return }
         let request = URLRequest(url: url)
         postWebView.load(request)
+        postWebView.goBack()
     }
     
     func loadMapPoints() {
@@ -109,6 +119,98 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         //        detailMapView.setRegion(region, animated: true)
         self.detailMapView.showsUserLocation = true
     }
+    
+    //MARK: -MOVE DIVIDER
+    
+    @IBOutlet weak var dividerView: UIView!
+    
+    var location: CGPoint = CGPoint.zero {
+        willSet {
+            oldLocation = location
+        }
+    }
+    var oldLocation: CGPoint = CGPoint.zero
+    var velocity: CGPoint = CGPoint.zero
+    var locationInDividerView = CGPoint.zero
+    var bottomStoppingPoint: CGFloat = 580
+    var topStoppingPoint: CGFloat = 50
+    
+    var isDragging = false
+    
+    var currentViewPosition: ViewPosition = .top
+    
+    enum ViewPosition {
+        case top
+        case bottom
+        case other
+    }
+    
+    func setupViews() {
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panAction))
+        panGesture.minimumNumberOfTouches = 1
+        
+        panGesture.delegate = self
+        
+        self.view.addGestureRecognizer(panGesture)
+        
+    }
+    
+    @objc func panAction(sender: UIPanGestureRecognizer) {
+        
+        switch sender.state {
+        case .began:
+            break
+        case .changed:
+            if currentViewPosition != .other { currentViewPosition = .other }
+            let location = sender.location(ofTouch: 0, in: self.view)
+            self.location = CGPoint(x: location.x, y: location.y)
+            
+            self.locationInDividerView = sender.location(ofTouch: 0, in: self.dividerView)
+            self.velocity = sender.velocity(in: self.view)
+            
+            if self.dividerView.frame.contains(self.location) || isDragging {
+                isDragging = true
+                
+                print(dividerView.frame.origin.y, self.dividerView.frame.origin.y)
+                dividerView.frame.origin.y = self.location.y
+            }
+        case .ended:
+            print(self.dividerView.frame)
+            if self.velocity.y > 900 && self.dividerView.frame.contains(self.location) {
+                snapToBottom()
+            } else if self.velocity.y < -900 && self.dividerView.frame.contains(self.location) {
+                snapToTop()
+            } else if self.dividerView.frame.origin.y > bottomStoppingPoint {
+                snapToBottom()
+            } else if self.dividerView.frame.origin.y < topStoppingPoint {
+                snapToTop()
+            }
+            
+            isDragging = false
+            self.velocity = CGPoint.zero
+            
+        default:
+            break
+        }
+    }
+    
+    func snapToBottom() {
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            self.dividerView.frame.origin.y = 600
+        })
+        currentViewPosition = .bottom
+    }
+    
+    func snapToTop() {
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            self.dividerView.frame.origin.y = self.topStoppingPoint + 10
+        })
+        currentViewPosition = .top
+    }
+    
 }
 
 

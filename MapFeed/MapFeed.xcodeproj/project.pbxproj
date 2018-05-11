@@ -24,7 +24,6 @@
 		278349EC2091441300807C49 /* MapPinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278349EB2091441300807C49 /* MapPinController.swift */; };
 		27AB5AC72097BAF000CEC3E6 /* MediaViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */; };
 		27AB5AC92098BDB400CEC3E6 /* NicksCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AC82098BDB400CEC3E6 /* NicksCodeViewController.swift */; };
-		27AB5ACB2098DFB300CEC3E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACA2098DFB300CEC3E6 /* SettingsViewController.swift */; };
 		27AB5ACD209B6AAF00CEC3E6 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACC209B6AAF00CEC3E6 /* Report.swift */; };
 		27AB5ACF209B6DCD00CEC3E6 /* ReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ACE209B6DCD00CEC3E6 /* ReportController.swift */; };
 		27AB5AD1209B887400CEC3E6 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */; };
@@ -33,6 +32,7 @@
 		27AB5AD7209CFFE200CEC3E6 /* BlockedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */; };
 		27AB5AD9209F5D1C00CEC3E6 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5AD8209F5D1C00CEC3E6 /* ColorHelper.swift */; };
 		27AB5ADB20A0F8F800CEC3E6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ADA20A0F8F800CEC3E6 /* SettingsTableViewController.swift */; };
+		27AB5ADD20A10CA400CEC3E6 /* ProfileUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AB5ADC20A10CA400CEC3E6 /* ProfileUpdateViewController.swift */; };
 		27C93FEA208949B300C19E9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C93FE9208949B300C19E9D /* MapKit.framework */; };
 		27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FEB20894B3500C19E9D /* MapViewController.swift */; };
 		27C93FEE2089511E00C19E9D /* PostAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C93FED2089511E00C19E9D /* PostAnnotation.swift */; };
@@ -51,6 +51,7 @@
 		27C940202090FDC400C19E9D /* SwiftyRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C9401F2090FDC400C19E9D /* SwiftyRecordButton.swift */; };
 		27C940222091135B00C19E9D /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C940212091135A00C19E9D /* PhotoViewController.swift */; };
 		27C94024209113A900C19E9D /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C94023209113A900C19E9D /* VideoViewController.swift */; };
+		27D4173520A355DD00C3EC0F /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4173420A355DD00C3EC0F /* TODO.swift */; };
 		27F2380A2087F315001E379B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F238092087F315001E379B /* CloudKit.framework */; };
 		27F2380C2088EACB001E379B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2380B2088EACB001E379B /* DetailViewController.swift */; };
 		27F2380E20892BA0001E379B /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2380D20892BA0001E379B /* AddPostViewController.swift */; };
@@ -78,7 +79,6 @@
 		278349EB2091441300807C49 /* MapPinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinController.swift; sourceTree = "<group>"; };
 		27AB5AC62097BAF000CEC3E6 /* MediaViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewerViewController.swift; sourceTree = "<group>"; };
 		27AB5AC82098BDB400CEC3E6 /* NicksCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicksCodeViewController.swift; sourceTree = "<group>"; };
-		27AB5ACA2098DFB300CEC3E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		27AB5ACC209B6AAF00CEC3E6 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		27AB5ACE209B6DCD00CEC3E6 /* ReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportController.swift; sourceTree = "<group>"; };
 		27AB5AD0209B887400CEC3E6 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +87,7 @@
 		27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedTableViewCell.swift; sourceTree = "<group>"; };
 		27AB5AD8209F5D1C00CEC3E6 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		27AB5ADA20A0F8F800CEC3E6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		27AB5ADC20A10CA400CEC3E6 /* ProfileUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateViewController.swift; sourceTree = "<group>"; };
 		27C93FE9208949B300C19E9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		27C93FEB20894B3500C19E9D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		27C93FED2089511E00C19E9D /* PostAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotation.swift; sourceTree = "<group>"; };
@@ -105,6 +106,7 @@
 		27C9401F2090FDC400C19E9D /* SwiftyRecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyRecordButton.swift; sourceTree = "<group>"; };
 		27C940212091135A00C19E9D /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		27C94023209113A900C19E9D /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		27D4173420A355DD00C3EC0F /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
 		27F238092087F315001E379B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		27F2380B2088EACB001E379B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		27F2380D20892BA0001E379B /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
@@ -229,7 +231,6 @@
 				27C93FEB20894B3500C19E9D /* MapViewController.swift */,
 				27C93FEF208A5FBE00C19E9D /* AddAnnotationViewController.swift */,
 				27C93FF3208E46E700C19E9D /* ProfileViewController.swift */,
-				27AB5ACA2098DFB300CEC3E6 /* SettingsViewController.swift */,
 				27C93FF5208E481E00C19E9D /* UserPostsTableViewCell.swift */,
 				27C93FF7208E7FBF00C19E9D /* HomeFeedViewController.swift */,
 				27C93FF9208E81ED00C19E9D /* HomeFeedTableViewCell.swift */,
@@ -240,6 +241,8 @@
 				27AB5AD4209CF80900CEC3E6 /* UnblockUserViewController.swift */,
 				27AB5ADA20A0F8F800CEC3E6 /* SettingsTableViewController.swift */,
 				27AB5AD6209CFFE200CEC3E6 /* BlockedTableViewCell.swift */,
+				27AB5ADC20A10CA400CEC3E6 /* ProfileUpdateViewController.swift */,
+				27D4173420A355DD00C3EC0F /* TODO.swift */,
 				27C940052090EE4600C19E9D /* Camera */,
 			);
 			path = "View Contoller";
@@ -354,6 +357,7 @@
 				27AB5AD3209CC00E00CEC3E6 /* AlertExtension.swift in Sources */,
 				27F238102089378D001E379B /* shiftableViewController.swift in Sources */,
 				27C94024209113A900C19E9D /* VideoViewController.swift in Sources */,
+				27D4173520A355DD00C3EC0F /* TODO.swift in Sources */,
 				27C9401B2090F3FE00C19E9D /* SwiftyCamButton.swift in Sources */,
 				27F2380C2088EACB001E379B /* DetailViewController.swift in Sources */,
 				27C93FF4208E46E700C19E9D /* ProfileViewController.swift in Sources */,
@@ -372,10 +376,10 @@
 				27C940192090F3FE00C19E9D /* PreviewView.swift in Sources */,
 				2781C3722086884700CCA1AD /* Post.swift in Sources */,
 				27AB5ACD209B6AAF00CEC3E6 /* Report.swift in Sources */,
-				27AB5ACB2098DFB300CEC3E6 /* SettingsViewController.swift in Sources */,
 				27C93FF0208A5FBE00C19E9D /* AddAnnotationViewController.swift in Sources */,
 				27C940202090FDC400C19E9D /* SwiftyRecordButton.swift in Sources */,
 				27C93FFC208E822800C19E9D /* HomeFeedCollectionViewCell.swift in Sources */,
+				27AB5ADD20A10CA400CEC3E6 /* ProfileUpdateViewController.swift in Sources */,
 				278349EC2091441300807C49 /* MapPinController.swift in Sources */,
 				27AB5ADB20A0F8F800CEC3E6 /* SettingsTableViewController.swift in Sources */,
 				27C93FEC20894B3500C19E9D /* MapViewController.swift in Sources */,

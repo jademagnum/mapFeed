@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         postsTableView.delegate = self
         postsTableView.dataSource = self
+
         
         
         guard let currentUser = UserController.shared.currentUser else { return }

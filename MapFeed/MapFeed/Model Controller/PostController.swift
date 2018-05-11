@@ -28,6 +28,7 @@ class PostController {
         let userRef = CKReference(recordID: userID, action: .deleteSelf)
     
         let post = Post(user: user, headline: headline, url: url, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, userRef: userRef)
+        
         posts.append(post)
         
         // CloudKit manager asks to save a ckRecord
@@ -46,6 +47,32 @@ class PostController {
             completion(post)
             return
         }
+        
+        guard let postID = post.cloudKitRecordID else { return }
+        let postRef = CKReference(recordID: postID, action: .deleteSelf)
+        
+        let captionComment = addComment(toPost: post, commentText: headline, userRef: userRef, postRef: postRef)
+        
+        cloudKitManager.modifyRecords([captionComment.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
+            guard let records = records else { return }
+            if let error = error {
+                print("\(#function), \(error), \(error.localizedDescription)")
+                return
+            }
+        }
+    }
+    
+    @discardableResult func addComment(toPost post: Post, commentText: String, userRef: CKReference, postRef: CKReference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
+        let comment = Comment(post: post, text: commentText, userRef: userRef, postRef: postRef)
+        post.comments.append(comment)
+        
+//        cloudKitManager.modifyRecords([comment.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
+//            guard let records = records else { return }
+//            if let error = error {
+//                print("\(#function), \(error), \(error.localizedDescription)")
+//            }
+//        }
+        return comment
     }
     
     func fetchPosts(user: User, completion: @escaping () -> Void) {

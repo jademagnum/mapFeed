@@ -96,7 +96,40 @@ class Post: NSObject, MKAnnotation {
         } else {
             record.setValue(userRef, forKey: userRefKey)
         }
+        
+        cloudKitRecordID = recordID
         return record
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
