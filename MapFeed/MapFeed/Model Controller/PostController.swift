@@ -51,7 +51,7 @@ class PostController {
         guard let postID = post.cloudKitRecordID else { return }
         let postRef = CKReference(recordID: postID, action: .deleteSelf)
         
-        let captionComment = addComment(toPost: post, commentText: headline, userRef: userRef, postRef: postRef)
+        let captionComment = addComment(toPost: post, user: user, commentText: headline, userRef: userRef, postRef: postRef)
         
         cloudKitManager.modifyRecords([captionComment.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
             guard let records = records else { return }
@@ -62,8 +62,8 @@ class PostController {
         }
     }
     
-    @discardableResult func addComment(toPost post: Post, commentText: String, userRef: CKReference, postRef: CKReference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
-        let comment = Comment(post: post, text: commentText, userRef: userRef, postRef: postRef)
+    @discardableResult func addComment(toPost post: Post, user: User, commentText: String, userRef: CKReference, postRef: CKReference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
+        let comment = Comment(post: post, user: user, text: commentText, userRef: userRef, postRef: postRef)
         post.comments.append(comment)
         
 //        cloudKitManager.modifyRecords([comment.cloudKitRecord], perRecordCompletion: nil) { (records, error) in

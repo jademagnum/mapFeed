@@ -14,6 +14,7 @@ class Comment {
     static let typeKey = "Comment"
     private let textKey = "text"
     private let postKey = "post"
+    private let userKey = "user"
     private let timestampKey = "timestamp"
     private let userRefKey = "userRef"
     private let postRefKey = "postRef"
@@ -24,9 +25,11 @@ class Comment {
     var userRef: CKReference?
     var cloudKitRecordID: CKRecordID?
     var postRef: CKReference?
+    var user: User?
     
-    init(post: Post?, text: String, timestamp: Date = Date(), userRef: CKReference?, postRef: CKReference?) {
+    init(post: Post?, user: User? = nil, text: String, timestamp: Date = Date(), userRef: CKReference?, postRef: CKReference?) {
         self.post = post
+        self.user = user
         self.text = text
         self.timestamp = timestamp
         self.userRef = userRef
@@ -60,6 +63,14 @@ class Comment {
             record.setValue(postReference, forKey: postRefKey)
         } else {
             record.setValue(postRef, forKey: postRefKey)
+        }
+        
+        if let user = user,
+            let userRecordID = user.cloudKitRecordID {
+            let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
+            record.setValue(userReference, forKey: userRefKey)
+        } else {
+            record.setValue(userRef, forKey: userRefKey)
         }
         return record
     }

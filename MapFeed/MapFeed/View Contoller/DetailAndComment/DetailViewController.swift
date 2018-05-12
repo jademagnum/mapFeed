@@ -16,13 +16,6 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     @IBOutlet weak var detailMapView: MKMapView!
     
     
-    @IBAction func likeButtonTapped(_ sender: Any) {
-    }
-    @IBAction func commentButtonTapped(_ sender: Any) {
-    }
-    @IBAction func reportButtonTapped(_ sender: Any) {
-    }
-    
     var post: Post?
     var mapPins: [MapPin] = []
     var postAnnotation: MKPointAnnotation?
@@ -119,6 +112,29 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         //        detailMapView.setRegion(region, animated: true)
         self.detailMapView.showsUserLocation = true
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toCommentVC" {
+            if let commentVC = segue.destination as? CommentViewController,
+                let post = post {
+                commentVC.post = post
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //MARK: -MOVE DIVIDER
     

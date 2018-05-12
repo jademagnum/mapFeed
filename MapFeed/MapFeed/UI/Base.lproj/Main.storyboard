@@ -6,7 +6,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -292,7 +291,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="feedTableView" destination="vHf-CK-aeF" id="mac-1z-f1A"/>
-                        <segue destination="VGC-Ha-ceO" kind="presentation" identifier="toDetailVCFromHomeFeedVC" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Prq-LS-2LE"/>
+                        <segue destination="VGC-Ha-ceO" kind="show" identifier="toDetailVCFromHomeFeedVC" id="Prq-LS-2LE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTG-6c-3Pr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -688,7 +687,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5p-Ls-K1X">
-                                <rect key="frame" x="0.0" y="20" width="375" height="445"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="494"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -696,13 +695,13 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GnC-p8-DKK">
-                                <rect key="frame" x="0.0" y="491" width="375" height="127"/>
+                                <rect key="frame" x="0.0" y="540" width="375" height="127"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="127" id="6Na-2B-6Ep"/>
                                 </constraints>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcV-TH-Wfy">
-                                <rect key="frame" x="0.0" y="473" width="375" height="10"/>
+                                <rect key="frame" x="0.0" y="522" width="375" height="10"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="2ab-FW-CpS"/>
@@ -726,41 +725,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="yVZ-0w-hMa"/>
                     <navigationItem key="navigationItem" id="jHm-TF-BPY">
-                        <rightBarButtonItems>
-                            <barButtonItem style="plain" id="W4d-v8-9Pv">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3yW-FZ-4MI">
-                                    <rect key="frame" x="312" y="7" width="47" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Report"/>
-                                    <connections>
-                                        <action selector="reportButtonTapped:" destination="VGC-Ha-ceO" eventType="touchUpInside" id="2yu-c1-eVd"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="oYg-9X-lRY">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PRA-ZD-XqE">
-                                    <rect key="frame" x="237" y="7" width="67" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Comment"/>
-                                    <connections>
-                                        <action selector="commentButtonTapped:" destination="VGC-Ha-ceO" eventType="touchUpInside" id="6t3-aQ-Clj"/>
-                                    </connections>
-                                </button>
-                                <connections>
-                                    <segue destination="7IA-9K-em4" kind="show" identifier="toCommentTVC" id="17B-ip-Bir"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="wKS-2R-bEC">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nJz-Yc-Xvp">
-                                    <rect key="frame" x="199" y="7" width="30" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Like"/>
-                                    <connections>
-                                        <action selector="likeButtonTapped:" destination="VGC-Ha-ceO" eventType="touchUpInside" id="UG5-Nl-ASh"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Comment" id="Shq-Bd-AYf">
+                            <connections>
+                                <segue destination="7IA-9K-em4" kind="show" identifier="toCommentVC" id="7rO-q8-vSj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="detailMapView" destination="GnC-p8-DKK" id="8My-OP-EN8"/>
@@ -790,26 +759,61 @@
             </objects>
             <point key="canvasLocation" x="3398" y="537"/>
         </scene>
-        <!--View Controller-->
+        <!--Comment View Controller-->
         <scene sceneID="Rdt-Q0-pfp">
             <objects>
-                <viewController id="7IA-9K-em4" sceneMemberID="viewController">
+                <viewController id="7IA-9K-em4" customClass="CommentViewController" customModule="MapFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gWb-rp-gZG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tQm-Vl-jhh">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="pi8-5u-be9">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="105" id="pi8-5u-be9" customClass="CommentTableViewCell" customModule="MapFeed" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pi8-5u-be9" id="fGs-u7-glq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KQQ-ke-tSc">
+                                                    <rect key="frame" x="28" y="21.5" width="319" height="61.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvY-q8-ok4">
+                                                            <rect key="frame" x="0.0" y="0.0" width="319" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y1r-86-jTK">
+                                                            <rect key="frame" x="0.0" y="20.5" width="319" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvC-fq-2a7">
+                                                            <rect key="frame" x="0.0" y="41" width="319" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KQQ-ke-tSc" firstAttribute="centerY" secondItem="fGs-u7-glq" secondAttribute="centerY" id="29o-mG-DUn"/>
+                                                <constraint firstItem="KQQ-ke-tSc" firstAttribute="centerX" secondItem="fGs-u7-glq" secondAttribute="centerX" id="AO0-oY-Gri"/>
+                                                <constraint firstItem="KQQ-ke-tSc" firstAttribute="width" secondItem="fGs-u7-glq" secondAttribute="width" multiplier="0.85" id="bo9-NQ-bpe"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentLabel" destination="Y1r-86-jTK" id="8Xy-oG-WJa"/>
+                                            <outlet property="timestampLabel" destination="UvC-fq-2a7" id="o8J-1L-eDK"/>
+                                            <outlet property="usernameLabel" destination="tvY-q8-ok4" id="gcR-2B-roX"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -821,6 +825,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="EDl-Gf-0cL"/>
                     </view>
+                    <connections>
+                        <outlet property="commentTableVIew" destination="tQm-Vl-jhh" id="nho-gO-GCX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wcz-96-pdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1299,6 +1306,6 @@
         <image name="flipCamera" width="30" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Prq-LS-2LE"/>
+        <segue reference="pn0-Ea-cha"/>
     </inferredMetricsTieBreakers>
 </document>
