@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		277B44EE20ABA32E00EDAECD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B44ED20ABA32E00EDAECD /* UIViewExtension.swift */; };
 		2781C3572086749100CCA1AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781C3562086749100CCA1AD /* AppDelegate.swift */; };
 		2781C35C2086749100CCA1AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2781C35A2086749100CCA1AD /* Main.storyboard */; };
 		2781C35E2086749500CCA1AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2781C35D2086749500CCA1AD /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		277B44ED20ABA32E00EDAECD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		2781C3532086749100CCA1AD /* MapFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2781C3562086749100CCA1AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2781C35B2086749100CCA1AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				2781C3832087B9F300CCA1AD /* CloudKitManager.swift */,
 				27F2380F2089378D001E379B /* shiftableViewController.swift */,
 				27AB5AD2209CC00E00CEC3E6 /* AlertExtension.swift */,
+				277B44ED20ABA32E00EDAECD /* UIViewExtension.swift */,
 				27AB5AD8209F5D1C00CEC3E6 /* ColorHelper.swift */,
 			);
 			path = Helper;
@@ -385,6 +388,7 @@
 				27D4173920A6230C00C3EC0F /* CommentTableViewCell.swift in Sources */,
 				27C93FFA208E81ED00C19E9D /* HomeFeedTableViewCell.swift in Sources */,
 				2781C3762086A8D500CCA1AD /* Like.swift in Sources */,
+				277B44EE20ABA32E00EDAECD /* UIViewExtension.swift in Sources */,
 				2781C3822087AB5800CCA1AD /* PostController.swift in Sources */,
 				27AB5AD5209CF80900CEC3E6 /* UnblockUserViewController.swift in Sources */,
 				2781C38A2087ED2200CCA1AD /* WelcomeViewController.swift in Sources */,

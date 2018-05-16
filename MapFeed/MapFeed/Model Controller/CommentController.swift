@@ -63,6 +63,20 @@ class CommmentController {
             completion(true)
         })
     }
+    
+    func addComment(toPost post: Post, user: User, commentText: String, userRef: CKReference, postRef: CKReference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
+        let comment = Comment(post: post, user: user, text: commentText, userRef: userRef, postRef: postRef)
+        post.comments.append(comment)
+        
+                cloudKitManager.modifyRecords([comment.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
+                    guard let records = records else { return }
+                    if let error = error {
+                        print("\(#function), \(error), \(error.localizedDescription)")
+                    }
+                }
+        return comment
+    }
+    
 }
 
 

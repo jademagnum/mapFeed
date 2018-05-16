@@ -23,6 +23,7 @@ class PostController {
     
     
     func createPostWith(user: User, headline: String, url: String, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), completion: @escaping ((Post?) -> Void)){
+        
         guard let userID = user.cloudKitRecordID else { return }
         
         let userRef = CKReference(recordID: userID, action: .deleteSelf)
