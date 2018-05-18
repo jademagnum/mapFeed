@@ -13,7 +13,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var logoImageView: UIImageView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     
     
     override func viewDidLoad() {
@@ -32,7 +32,6 @@ class SignUpViewController: UIViewController {
         guard let email = emailTextField.text,
             let username = usernameTextField.text else { return }
         
-        activityIndicator.startAnimating()
         
         UserController.shared.createUserWith(username: username, email: email) { (success) in
            // self.activityIndicator.stopAnimating()
@@ -40,7 +39,7 @@ class SignUpViewController: UIViewController {
             if !success {
                 DispatchQueue.main.async {
                     self.presentSimpleAlert(title: "Unable to create an account", message: "Sucks to suck, please try again")
-                    self.activityIndicator.stopAnimating()
+
                 }
                 return
             }
@@ -49,12 +48,12 @@ class SignUpViewController: UIViewController {
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         guard UserController.shared.currentUser == nil else { segueToWelcomeVC(); return }
-        activityIndicator.startAnimating()
+ //       activityIndicator.startAnimating()
         UserController.shared.fetchCurrentUser { (success) in
             if !success {
                 
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
+
                     
                     self.presentSimpleAlert(title: "No iCloud account configured", message: "Please sign into iCloud in your device's settings and try again.")
                 }

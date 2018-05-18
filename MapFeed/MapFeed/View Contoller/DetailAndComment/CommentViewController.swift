@@ -11,10 +11,10 @@ import CloudKit
 
 class CommentViewController: ShiftableViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    @IBOutlet weak var commentTableVIew: UITableView!
+    @IBOutlet weak var commentTableView: UITableView!
     
     var post: Post?
+    var comments: [Comment] = []
     var currentUser = UserController.shared.currentUser
     
     let messageInputContainerView: UIView = {
@@ -53,7 +53,15 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
         guard let comment = inputTextField.text else { return }
         
         CommmentController.shared.addComment(toPost: post, user: currentUser, commentText: comment, userRef: userRef, postRef: postRef)
-        commentTableVIew.reloadData()
+        
+        CommmentController.shared.fetchComments(post: post) {_ in
+            self.comments = post.comments
+            DispatchQueue.main.async {
+                self.commentTableView.reloadData()
+            }
+        }
+        commentTableView.reloadData()
+        inputTextField.text = ""
     }
     
     var bottomConstaint: NSLayoutConstraint?
@@ -66,21 +74,23 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
-        commentTableVIew.delegate = self
-        commentTableVIew.dataSource = self
-        commentTableVIew.rowHeight = 150
+        commentTableView.delegate = self
+        commentTableView.dataSource = self
+        commentTableView.rowHeight = 150
         
         
         guard let post = post else { return }
         
         CommmentController.shared.fetchComments(post: post) {_ in
+            self.comments = post.comments
             DispatchQueue.main.async {
-                self.commentTableVIew.reloadData()
+                self.commentTableView.reloadData()
             }
         }
         view.addSubview(messageInputContainerView)
+        view.addConstraintsWithFormat("H:|[v0]|", views: commentTableView)
         view.addConstraintsWithFormat("H:|[v0]|", views: messageInputContainerView)
-        view.addConstraintsWithFormat("V:[v0(48)]", views: messageInputContainerView)
+        view.addConstraintsWithFormat("V:|[v0][v1(48)]", views: commentTableView, messageInputContainerView)
         
         bottomConstaint = NSLayoutConstraint(item: messageInputContainerView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
         view.addConstraints([bottomConstaint!])
@@ -106,7 +116,7 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
             }) { (completed) in
                 if isKeyboardShowing {
                     let indexPath = IndexPath(item: self.post!.comments.count - 1, section: 0)
-                    self.commentTableVIew.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                    self.commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
                 }
             }
         }
@@ -135,33 +145,65 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
         
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            self.comments.sort(by: { $0.timestamp < $1.timestamp })
+            self.comments.remove(at: indexPath.row)
+            self.commentTableView.reloadData()
+        }
+        
+//        let reportAction = UITableViewRowAction(style: .default, title: "Report") { (action, indexPath) in
+//            self.post?.comments.remove(at: indexPath.row)
+//            self.commentTableView.reloadData()
+//        }
+        
+        return [deleteAction]
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let post = post else { return 0 }
-        return post.comments.count
+        return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
         
-        let comment = post?.comments[indexPath.row]
+        var comments = self.comments
+        
+        comments.sort(by: { $0.timestamp < $1.timestamp })
+        let comment = comments[indexPath.row]
         cell.comment = comment
         return cell
+        
     }
-    
-    
-    //    @discardableResult func addComment(toPost post: Post, user: User, commentText: String, userRef: CKReference, postRef: CKReference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
-    //        let comment = Comment(post: post, user: user, text: commentText, userRef: userRef, postRef: postRef)
-    //        post.comments.append(comment)
-    //
-    //                cloudKitManager.modifyRecords([comment.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
-    //                    guard let records = records else { return }
-    //                    if let error = error {
-    //                        print("\(#function), \(error), \(error.localizedDescription)")
-    //                    }
-    //                }
-    //        return comment
-    //    }
-    
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

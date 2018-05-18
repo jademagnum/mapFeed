@@ -19,8 +19,6 @@ class CommentTableViewCell: UITableViewCell {
             updateViews()
         }
     }
-    
-    
 
     func updateViews() {
         guard let comment = comment else { return }
