@@ -45,20 +45,20 @@ class VideoViewController: UIViewController, CLLocationManagerDelegate {
         playerController?.showsPlaybackControls = false
         
         playerController?.player = player!
-        self.addChildViewController(playerController!)
+        self.addChild(playerController!)
         self.view.addSubview(playerController!.view)
         playerController?.view.frame = view.frame
         NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player!.currentItem)
         
         let cancelButton = UIButton(frame: CGRect(x: 10.0, y: 10.0, width: 30.0, height: 30.0))
-        cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControlState())
-        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControl.State())
+        cancelButton.addTarget(self, action: #selector(cancel), for: UIControl.Event.touchUpInside)
         view.addSubview(cancelButton)
         
         let viewSize = self.view.frame.size
         let addMapPostButton = UIButton(frame: CGRect(x: ((viewSize.width)-50), y: 20, width: 30, height: 30))
-        addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControlState())
-        addMapPostButton.addTarget(self, action: #selector(addMapPost), for: .touchUpInside)
+        addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControl.State())
+        addMapPostButton.addTarget(self, action: #selector(addMapPost), for: UIControl.Event.touchUpInside)
         view.addSubview(addMapPostButton)
         
         locationManager.delegate = self
@@ -70,7 +70,8 @@ class VideoViewController: UIViewController, CLLocationManagerDelegate {
         
         // Allow background audio to continue to play
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)), mode: AVAudioSession.Mode.default)
+
         } catch let error as NSError {
             print(error)
         }
@@ -109,8 +110,13 @@ class VideoViewController: UIViewController, CLLocationManagerDelegate {
     
     @objc fileprivate func playerItemDidReachEnd(_ notification: Notification) {
         if self.player != nil {
-            self.player?.seek(to: kCMTimeZero)
+            self.player?.seek(to: CMTime.zero)
             self.player?.play()
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

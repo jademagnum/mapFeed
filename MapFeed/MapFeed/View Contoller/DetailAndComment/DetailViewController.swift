@@ -213,7 +213,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     
     func snapToBottom() {
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.dividerView.frame.origin.y = 600
         })
         currentViewPosition = .bottom
@@ -221,7 +221,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     
     func snapToTop() {
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.dividerView.frame.origin.y = self.topStoppingPoint + 10
         })
         currentViewPosition = .top

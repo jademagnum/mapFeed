@@ -15,7 +15,7 @@ class CloudKitManager {
     
     let publicDatabase = CKContainer.default().publicCloudDatabase
     
-    func fetchRecord(withID recordID: CKRecordID, completion: ((_ record: CKRecord?, _ error: Error?) -> Void)?) {
+    func fetchRecord(withID recordID: CKRecord.ID, completion: ((_ record: CKRecord?, _ error: Error?) -> Void)?) {
         
         publicDatabase.fetch(withRecordID: recordID) { (record, error) in
             
@@ -69,9 +69,9 @@ class CloudKitManager {
         }
         queryOperation.recordFetchedBlock = perRecordBlock
         
-        var queryCompletionBlock: (CKQueryCursor?, Error?) -> Void = { (_, _) in }
+        var queryCompletionBlock: (CKQueryOperation.Cursor?, Error?) -> Void = { (_, _) in }
         
-        queryCompletionBlock = { (queryCursor: CKQueryCursor?, error: Error?) -> Void in
+        queryCompletionBlock = { (queryCursor: CKQueryOperation.Cursor?, error: Error?) -> Void in
             
             if let queryCursor = queryCursor {
                 

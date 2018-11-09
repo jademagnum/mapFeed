@@ -30,12 +30,12 @@ class User {
     var link: URL?
     var posts: [Post]
     var mapPins: [MapPin]
-    var blockedUserRefs: [CKReference] = []
+    var blockedUserRefs: [CKRecord.Reference] = []
     
-    let appleUserRef: CKReference
-    var cloudKitRecordID: CKRecordID?
+    let appleUserRef: CKRecord.Reference
+    var cloudKitRecordID: CKRecord.ID?
     
-    init(username: String, email: String, firstName: String? = nil, lastName: String? = nil, bio: String? = nil, link: URL? = nil, posts: [Post] = [], mapPins: [MapPin] = [], appleUserRef: CKReference, blockedUserRefs: [CKReference] = []) {
+    init(username: String, email: String, firstName: String? = nil, lastName: String? = nil, bio: String? = nil, link: URL? = nil, posts: [Post] = [], mapPins: [MapPin] = [], appleUserRef: CKRecord.Reference, blockedUserRefs: [CKRecord.Reference] = []) {
         self.username = username
         self.email = email
         self.firstName = firstName
@@ -51,9 +51,9 @@ class User {
     init?(cloudKitRecord: CKRecord) {
         guard let username = cloudKitRecord[usernameKey] as? String,
         let email = cloudKitRecord[emailKey] as? String,
-        let appleUserRef = cloudKitRecord[appleUserRefKey] as? CKReference else { return nil }
+        let appleUserRef = cloudKitRecord[appleUserRefKey] as? CKRecord.Reference else { return nil }
         
-        self.blockedUserRefs = cloudKitRecord[blockedUserRefsKey] as? [CKReference] ?? []
+        self.blockedUserRefs = cloudKitRecord[blockedUserRefsKey] as? [CKRecord.Reference] ?? []
         
         self.username = username
         self.email = email
@@ -69,7 +69,7 @@ class User {
     
     var cloudKitRecord: CKRecord {
         
-        let recordID = cloudKitRecordID ?? CKRecordID(recordName: UUID().uuidString)
+        let recordID = cloudKitRecordID ?? CKRecord.ID(recordName: UUID().uuidString)
         let record = CKRecord(recordType: User.typeKey, recordID: recordID)
         
         record.setValue(username, forKey: usernameKey)

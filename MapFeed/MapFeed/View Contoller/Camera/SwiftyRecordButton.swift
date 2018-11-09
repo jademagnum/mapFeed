@@ -45,7 +45,7 @@ class SwiftyRecordButton: SwiftyCamButton {
         innerCircle.clipsToBounds = true
         self.addSubview(innerCircle)
         
-        UIView.animate(withDuration: 0.6, delay: 0.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.6, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.innerCircle.transform = CGAffineTransform(scaleX: 62.4, y: 62.4)
             self.circleBorder.setAffineTransform(CGAffineTransform(scaleX: 1.352, y: 1.352))
             self.circleBorder.borderWidth = (6 / 1.352)
@@ -54,7 +54,7 @@ class SwiftyRecordButton: SwiftyCamButton {
     }
     
     public func shrinkButton() {
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.innerCircle.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             self.circleBorder.setAffineTransform(CGAffineTransform(scaleX: 1.0, y: 1.0))
             self.circleBorder.borderWidth = 6.0

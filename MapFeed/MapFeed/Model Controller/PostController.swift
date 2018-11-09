@@ -26,7 +26,7 @@ class PostController {
         
         guard let userID = user.cloudKitRecordID else { return }
         
-        let userRef = CKReference(recordID: userID, action: .deleteSelf)
+        let userRef = CKRecord.Reference(recordID: userID, action: .deleteSelf)
     
         let post = Post(user: user, headline: headline, url: url, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, userRef: userRef)
         
@@ -50,7 +50,7 @@ class PostController {
         }
         
         guard let postID = post.cloudKitRecordID else { return }
-        let postRef = CKReference(recordID: postID, action: .deleteSelf)
+        let postRef = CKRecord.Reference(recordID: postID, action: .deleteSelf)
         
         let captionComment = addComment(toPost: post, user: user, commentText: headline, userRef: userRef, postRef: postRef)
         
@@ -63,7 +63,7 @@ class PostController {
         }
     }
     
-    @discardableResult func addComment(toPost post: Post, user: User, commentText: String, userRef: CKReference, postRef: CKReference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
+    @discardableResult func addComment(toPost post: Post, user: User, commentText: String, userRef: CKRecord.Reference, postRef: CKRecord.Reference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
         let comment = Comment(post: post, user: user, text: commentText, userRef: userRef, postRef: postRef)
         post.comments.append(comment)
         
@@ -78,7 +78,7 @@ class PostController {
     
     func fetchPosts(user: User, completion: @escaping () -> Void) {
         guard let userRecordID = user.cloudKitRecordID else { completion(); return }
-        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
+        let userReference = CKRecord.Reference(recordID: userRecordID, action: .deleteSelf)
         let predicate = NSPredicate(format: "userRef == %@", userReference)
         
         cloudKitManager.fetchRecordsOf(type: Post.typeKey, predicate: predicate, database: publicDB) { (records, error) in

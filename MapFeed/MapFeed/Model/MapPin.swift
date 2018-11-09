@@ -40,16 +40,16 @@ class MapPin: NSObject, MKAnnotation {
     weak var user: User?
     let gpsLongitude: Double
     let gpsLatitude: Double
-    let reference: CKReference
+    let reference: CKRecord.Reference
     let timestamp: Date
     var mediaData: Data?
-    var cloudKitRecordID: CKRecordID?
+    var cloudKitRecordID: CKRecord.ID?
     var photo: UIImage? {
         guard let mediaData = mediaData else { return nil }
         return UIImage(data: mediaData)
     }
     
-    init(user: User?, gpsLatitude: Double, gpsLongitude: Double, reference: CKReference, timestamp: Date = Date(), mediaData: Data = Data(), photo: UIImage = UIImage()) {
+    init(user: User?, gpsLatitude: Double, gpsLongitude: Double, reference: CKRecord.Reference, timestamp: Date = Date(), mediaData: Data = Data(), photo: UIImage = UIImage()) {
         self.user = user
         self.gpsLatitude = gpsLatitude
         self.gpsLongitude = gpsLongitude
@@ -62,7 +62,7 @@ class MapPin: NSObject, MKAnnotation {
         
         guard let gpsLatitude = cloudKitRecord[gpsLatitudeKey] as? Double,
             let gpsLongitude = cloudKitRecord[gpsLongitudeKey] as? Double,
-            let reference = cloudKitRecord[referenceKey] as? CKReference,
+            let reference = cloudKitRecord[referenceKey] as? CKRecord.Reference,
             let timestamp = cloudKitRecord[timestampKey] as? Date else { return nil }
         self.gpsLatitude = gpsLatitude
         self.gpsLongitude = gpsLongitude
@@ -86,7 +86,7 @@ class MapPin: NSObject, MKAnnotation {
     
     
     var cloudKitRecord: CKRecord {
-        let recordID = cloudKitRecordID ?? CKRecordID(recordName: UUID().uuidString)
+        let recordID = cloudKitRecordID ?? CKRecord.ID(recordName: UUID().uuidString)
         let record = CKRecord(recordType: MapPin.typeKey, recordID: recordID)
         
         record.setValue(gpsLatitude, forKey: gpsLatitudeKey)
@@ -98,7 +98,7 @@ class MapPin: NSObject, MKAnnotation {
         
         if let user = user,
             let userRecordID = user.cloudKitRecordID {
-            let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
+            let userReference = CKRecord.Reference(recordID: userRecordID, action: .deleteSelf)
             record.setValue(userReference, forKey: userRefKey)
         }
         return record

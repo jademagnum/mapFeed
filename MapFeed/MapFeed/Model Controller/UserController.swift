@@ -44,7 +44,7 @@ class UserController {
         CKContainer.default().fetchUserRecordID { (appleUserRecordID, error) in
             guard let appleUserRecordID = appleUserRecordID else { return }
             
-            let appleUserRef = CKReference(recordID: appleUserRecordID, action: .deleteSelf)
+            let appleUserRef = CKRecord.Reference(recordID: appleUserRecordID, action: .deleteSelf)
             
             let blockUserRef = self.currentUser?.blockedUserRefs
             
@@ -69,7 +69,7 @@ class UserController {
             
             guard let appleRecordID = appleRecordID else { completion(false); return }
             
-            let appleUserReference = CKReference(recordID: appleRecordID, action: .deleteSelf)
+            let appleUserReference = CKRecord.Reference(recordID: appleRecordID, action: .deleteSelf)
             
             let predicate = NSPredicate(format: "appleUserRef == %@", appleUserReference)
             
@@ -83,7 +83,7 @@ class UserController {
         }
     }
     
-    func fetchBlockedUsers(blockedUserReferences: [CKReference], completion: @escaping (_ blockedUsers: [User]) -> Void = { _ in }) {
+    func fetchBlockedUsers(blockedUserReferences: [CKRecord.Reference], completion: @escaping (_ blockedUsers: [User]) -> Void = { _ in }) {
         
         var blockedUsers: [User] = []
         let dispatchGroup = DispatchGroup()
@@ -146,7 +146,7 @@ class UserController {
         
         // The predicat of value Ture means everyting. (what we deleted) "expensive"
         /// This predicat is only going to get the user refs
-        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
+        let userReference = CKRecord.Reference(recordID: userRecordID, action: .deleteSelf)
         
         let predicate = NSPredicate(format: "userRef == %@", userReference)
         
@@ -217,7 +217,7 @@ class UserController {
     //        }
     //    }
     
-    func userToBlock(blockUserRef: CKReference, completion: @escaping (_ success: Bool) -> Void) {
+    func userToBlock(blockUserRef: CKRecord.Reference, completion: @escaping (_ success: Bool) -> Void) {
         if currentUser?.cloudKitRecordID?.recordName != blockUserRef.recordID.recordName {
             self.currentUser?.blockedUserRefs.append(blockUserRef)
         } else {

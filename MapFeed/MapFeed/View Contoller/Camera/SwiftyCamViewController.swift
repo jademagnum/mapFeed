@@ -269,7 +269,7 @@ open class SwiftyCamViewController: UIViewController {
 		super.viewDidLoad()
         previewLayer = PreviewView(frame: view.frame, videoGravity: videoGravity)
         view.addSubview(previewLayer)
-        view.sendSubview(toBack: previewLayer)
+        view.sendSubviewToBack(previewLayer)
 
 		// Add Gesture Recognizers
 
@@ -459,12 +459,12 @@ open class SwiftyCamViewController: UIViewController {
 			flashView?.backgroundColor = UIColor.white
 			previewLayer.addSubview(flashView!)
 
-			UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+			UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
 				self.flashView?.alpha = 1.0
 
 			}, completion: { (_) in
 				self.capturePhotoAsyncronously(completionHandler: { (success) in
-					UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+					UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
 						self.flashView?.alpha = 0.0
 					}, completion: { (_) in
 						self.flashView?.removeFromSuperview()
@@ -514,7 +514,7 @@ open class SwiftyCamViewController: UIViewController {
 		sessionQueue.async { [unowned self] in
 			if !movieFileOutput.isRecording {
 				if UIDevice.current.isMultitaskingSupported {
-					self.backgroundRecordingID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
+					self.backgroundRecordingID = UIBackgroundTaskIdentifier(rawValue: convertFromUIBackgroundTaskIdentifier(UIApplication.shared.beginBackgroundTask(expirationHandler: nil)))
 				}
 
 				// Update the orientation on the movie file output video connection before starting recording.
@@ -560,7 +560,7 @@ open class SwiftyCamViewController: UIViewController {
 			disableFlash()
 
 			if currentCamera == .front && flashEnabled == true && flashView != nil {
-				UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+				UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
 					self.flashView?.alpha = 0.0
 				}, completion: { (_) in
 					self.flashView?.removeFromSuperview()
@@ -841,9 +841,9 @@ open class SwiftyCamViewController: UIViewController {
 			alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
 			alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .default, handler: { action in
 				if #available(iOS 10.0, *) {
-					UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+					UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
 				} else {
-					if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
+					if let appSettings = URL(string: UIApplication.openSettingsURLString) {
 						UIApplication.shared.openURL(appSettings)
 					}
 				}
@@ -979,11 +979,11 @@ open class SwiftyCamViewController: UIViewController {
 
 		do{
             if #available(iOS 10.0, *) {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord,
-                                                                with: [.mixWithOthers, .allowBluetooth, .allowAirPlay, .allowBluetoothA2DP])
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)),
+                                                                mode: AVAudioSession.Mode.default)
             } else {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord,
-                                                                with: [.mixWithOthers, .allowBluetooth])
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)),
+                                                                mode: AVAudioSession.Mode.default)
             }
 			session.automaticallyConfiguresApplicationAudioSession = false
 		}
@@ -1054,10 +1054,10 @@ extension SwiftyCamViewController : AVCaptureFileOutputRecordingDelegate {
 
     public func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let currentBackgroundRecordingID = backgroundRecordingID {
-            backgroundRecordingID = UIBackgroundTaskInvalid
+            backgroundRecordingID = UIBackgroundTaskIdentifier(rawValue: convertFromUIBackgroundTaskIdentifier(UIBackgroundTaskIdentifier.invalid))
 
-            if currentBackgroundRecordingID != UIBackgroundTaskInvalid {
-                UIApplication.shared.endBackgroundTask(currentBackgroundRecordingID)
+            if currentBackgroundRecordingID.rawValue != convertFromUIBackgroundTaskIdentifier(UIBackgroundTaskIdentifier.invalid) {
+                UIApplication.shared.endBackgroundTask(convertToUIBackgroundTaskIdentifier(currentBackgroundRecordingID.rawValue))
             }
         }
 
@@ -1235,4 +1235,19 @@ extension SwiftyCamViewController : UIGestureRecognizerDelegate {
 		}
 		return true
 	}
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIBackgroundTaskIdentifier(_ input: UIBackgroundTaskIdentifier) -> Int {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
+	return UIBackgroundTaskIdentifier(rawValue: input)
 }

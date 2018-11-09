@@ -13,8 +13,13 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var commentTableView: UITableView!
     
-    var post: Post?
-    var comments: [Comment] = []
+    var post: Post? {
+        didSet {
+            navigationItem.title = post?.user?.username
+        }
+    }
+    
+    
     var currentUser = UserController.shared.currentUser
     
     let messageInputContainerView: UIView = {
@@ -31,21 +36,20 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
     
     let sendButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Send", for: .normal)
+        button.setTitle("Send", for: UIControl.State.normal)
         let titleColor = UIColor.blue
-        button.setTitleColor(titleColor, for: .normal)
+        button.setTitleColor(titleColor, for: UIControl.State.normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleSend), for: UIControl.Event.touchUpInside)
         return button
     }()
     
     @objc func handleSend() {
-        print(inputTextField.text)
         guard let currentUserID = currentUser?.cloudKitRecordID else { return }
-        var userRef = CKReference(recordID: currentUserID, action: .deleteSelf)
+        let userRef = CKRecord.Reference(recordID: currentUserID, action: .deleteSelf)
         
         guard let postID = post?.cloudKitRecordID else { return }
-        let postRef = CKReference(recordID: postID, action: .deleteSelf)
+        let postRef = CKRecord.Reference(recordID: postID, action: .deleteSelf)
         
         guard let post = post else { return }
         guard let currentUser = currentUser else { return }
@@ -53,14 +57,8 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
         guard let comment = inputTextField.text else { return }
         
         CommmentController.shared.addComment(toPost: post, user: currentUser, commentText: comment, userRef: userRef, postRef: postRef)
-        
-        CommmentController.shared.fetchComments(post: post) {_ in
-            self.comments = post.comments
-            DispatchQueue.main.async {
-                self.commentTableView.reloadData()
-            }
-        }
         commentTableView.reloadData()
+        
         inputTextField.text = ""
     }
     
@@ -69,24 +67,25 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+        
     }
     
     override func viewDidLoad() {
-        self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
-        commentTableView.delegate = self
-        commentTableView.dataSource = self
-        commentTableView.rowHeight = 150
-        
         
         guard let post = post else { return }
         
         CommmentController.shared.fetchComments(post: post) {_ in
-            self.comments = post.comments
             DispatchQueue.main.async {
                 self.commentTableView.reloadData()
             }
         }
+        
+        self.tabBarController?.tabBar.isHidden = true
+        commentTableView.delegate = self
+        commentTableView.dataSource = self
+        commentTableView.rowHeight = 150
+        
         view.addSubview(messageInputContainerView)
         view.addConstraintsWithFormat("H:|[v0]|", views: commentTableView)
         view.addConstraintsWithFormat("H:|[v0]|", views: messageInputContainerView)
@@ -97,21 +96,21 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
         
         setupInputComponents()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func handleKeyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
             let keyboardFrameValue = keyboardFrame?.cgRectValue
             
-            let isKeyboardShowing = notification.name == .UIKeyboardWillShow
+            let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
             
             bottomConstaint?.constant = isKeyboardShowing ? -keyboardFrameValue!.height : 0
             
-            UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.view.layoutIfNeeded()
             }) { (completed) in
                 if isKeyboardShowing {
@@ -149,17 +148,20 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.comments.sort(by: { $0.timestamp < $1.timestamp })
-            self.comments.remove(at: indexPath.row)
-            self.commentTableView.reloadData()
+        var deleteAction = UITableViewRowAction(style: UITableViewRowAction.Style.destructive, title: "Delete") { (action, indexPath) in
+
+            self.post?.comments.remove(at: indexPath.row)
+            
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
         }
         
-//        let reportAction = UITableViewRowAction(style: .default, title: "Report") { (action, indexPath) in
+//        var reportAction = UITableViewRowAction(style: .default, title: "Report") { (action, indexPath) in
 //            self.post?.comments.remove(at: indexPath.row)
 //            self.commentTableView.reloadData()
 //        }
@@ -169,20 +171,23 @@ class CommentViewController: ShiftableViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let comments = post?.comments else { return 0 }
         return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
         
-        var comments = self.comments
-        
-        comments.sort(by: { $0.timestamp < $1.timestamp })
+        if let comments = post?.comments {
+
         let comment = comments[indexPath.row]
         cell.comment = comment
         return cell
-        
+        } else {
+            return UITableViewCell()
+        }
     }
+    
 }
 
 

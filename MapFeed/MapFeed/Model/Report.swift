@@ -18,10 +18,10 @@ class Report {
     weak var post: Post?
     weak var mapPin: MapPin?
     var reportedFor: String
-    var cloudKitRecordID: CKRecordID?
-    var mediaRef: CKReference?
+    var cloudKitRecordID: CKRecord.ID?
+    var mediaRef: CKRecord.Reference?
     
-    init(post: Post?, mapPin: MapPin?, reportedFor: String, mediaRef: CKReference?) {
+    init(post: Post?, mapPin: MapPin?, reportedFor: String, mediaRef: CKRecord.Reference?) {
         self.post = post
         self.mapPin = mapPin
         self.reportedFor = reportedFor
@@ -30,7 +30,7 @@ class Report {
     
     init?(cloudKitRecord: CKRecord, post: Post?, mapPin: MapPin?) {
         guard let reportedFor = cloudKitRecord[reportedForKey] as? String,
-        let mediaRef = cloudKitRecord[mediaRefKey] as? CKReference else { return nil }
+        let mediaRef = cloudKitRecord[mediaRefKey] as? CKRecord.Reference else { return nil }
         
         self.post = post
         self.mapPin = mapPin
@@ -40,14 +40,14 @@ class Report {
     
     var cloudKitRecord: CKRecord {
         
-        let recordID = cloudKitRecordID ?? CKRecordID(recordName: UUID().uuidString)
+        let recordID = cloudKitRecordID ?? CKRecord.ID(recordName: UUID().uuidString)
         let record = CKRecord(recordType: Report.typeKey, recordID: recordID)
         
         record.setValue(reportedFor, forKey: reportedForKey)
         
         if let post = post,
             let postRecordID = post.cloudKitRecordID {
-            let postReference = CKReference(recordID: postRecordID, action: .deleteSelf)
+            let postReference = CKRecord.Reference(recordID: postRecordID, action: .deleteSelf)
             record.setValue(postReference, forKey: mediaRefKey)
         } else {
             record.setValue(mediaRef, forKey: mediaRefKey)
@@ -55,7 +55,7 @@ class Report {
         
         if let mapPin = mapPin,
             let mapPinRecordID = mapPin.cloudKitRecordID {
-            let mapPinReference = CKReference(recordID: mapPinRecordID, action: .deleteSelf)
+            let mapPinReference = CKRecord.Reference(recordID: mapPinRecordID, action: .deleteSelf)
             record.setValue(mapPinReference, forKey: mediaRefKey)
         } else {
             record.setValue(mediaRef, forKey: mediaRefKey)

@@ -251,7 +251,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
             
             let myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
             let spanMeters:CLLocationDistance = 50
-            let region = MKCoordinateRegionMakeWithDistance(myLocation, spanMeters, spanMeters)
+            let region = MKCoordinateRegion.init(center: myLocation, latitudinalMeters: spanMeters, longitudinalMeters: spanMeters)
             self.exploreMapView.setRegion(region, animated: true)
             self.exploreMapView.showsUserLocation = true
         }
@@ -440,7 +440,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         UIApplication.shared.beginIgnoringInteractionEvents()
         //Activity Indicator
         let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
@@ -451,7 +451,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         dismiss(animated: true, completion: nil)
         
         //Create the search request
-        let searchRequest = MKLocalSearchRequest()
+        let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = searchBar.text
         
         let activeSearch = MKLocalSearch(request: searchRequest)
@@ -486,7 +486,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         let location = locations[0]
         let myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let spanMeters:CLLocationDistance = 20000
-        let region = MKCoordinateRegionMakeWithDistance(myLocation, spanMeters, spanMeters)
+        let region = MKCoordinateRegion.init(center: myLocation, latitudinalMeters: spanMeters, longitudinalMeters: spanMeters)
         exploreMapView.setRegion(region, animated: true)
         self.exploreMapView.showsUserLocation = true
     }

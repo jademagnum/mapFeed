@@ -17,6 +17,10 @@ class HomeFeedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
     @IBOutlet private weak var homeFeedCollectionView: UICollectionView!
     @IBOutlet weak var usernameLabel: UILabel!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     weak var delegate: CollectionViewCellDelegate?
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -47,15 +51,14 @@ class HomeFeedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         return user.posts.count
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = homeFeedCollectionView.dequeueReusableCell(withReuseIdentifier: "homeFeedCollectionViewCell", for: indexPath) as? HomeFeedCollectionViewCell,
             let post = user?.posts[indexPath.row] else { return UICollectionViewCell() }
         
-        
         cell.headlineLabel.text = post.headline
         cell.timestampLabel.text = "\(post.timeStamp)"
   
-     
         return cell
     }
 }

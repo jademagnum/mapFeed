@@ -21,15 +21,26 @@ class CommmentController {
         return CloudKitManager()
     }()
     
-    func fetchComments(post: Post, completion: @escaping (_ success: Bool) -> Void) {
+//    init() {
+//        self.comments = fetchComments()
+//    }
+ 
+    
+    func fetchComments(post: Post, completion: @escaping (_ success: Bool) -> Void)  {
         guard let postRecordID = post.cloudKitRecordID else { completion(false); return }
-        let postReference = CKReference(recordID: postRecordID, action: .deleteSelf)
+        let postReference = CKRecord.Reference(recordID: postRecordID, action: .deleteSelf)
         let predicate = NSPredicate(format: "postRef == %@", postReference)
         
         cloudKitManager.fetchRecordsOf(type: Comment.typeKey, predicate: predicate, database: publicDB) { (records, error) in
             if let error = error { print(error.localizedDescription) }
             guard let records = records else { completion(false); return }
-            let comments = records.compactMap({ Comment(cloudKitRecord: $0, post: post)})
+            var comments = records.compactMap({ Comment(cloudKitRecord: $0, post: post)})
+            comments.sort(by: { $0.timestamp.compare($1.timestamp) == .orderedAscending })
+            self.comments = comments
+//            for comment in comments {
+//                post.comments = comments
+//            }
+//            completion(true)
             let dispatchGroup = DispatchGroup()
             for comment in comments {
                 dispatchGroup.enter()
@@ -50,7 +61,7 @@ class CommmentController {
     func fetchUserFor(comment: Comment, completion: @escaping (_ success: Bool) -> Void) {
         
        guard let userRecordID = comment.userRef?.recordID else { return }
-        let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
+        let userReference = CKRecord.Reference(recordID: userRecordID, action: .deleteSelf)
         
              let predicate = NSPredicate(format: "recordID = %@", userReference)
   //      let predicate = NSPredicate(value: true)
@@ -64,7 +75,7 @@ class CommmentController {
         })
     }
     
-    func addComment(toPost post: Post, user: User, commentText: String, userRef: CKReference, postRef: CKReference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
+    func addComment(toPost post: Post, user: User, commentText: String, userRef: CKRecord.Reference, postRef: CKRecord.Reference, completion: @escaping ((Comment) -> Void) = { _ in }) -> Comment {
         let comment = Comment(post: post, user: user, text: commentText, userRef: userRef, postRef: postRef)
         post.comments.append(comment)
         

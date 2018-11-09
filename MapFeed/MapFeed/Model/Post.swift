@@ -44,10 +44,10 @@ class Post: NSObject, MKAnnotation {
     var comments: [Comment]
     var likes: [Like]
     var timeStamp: Date
-    var cloudKitRecordID: CKRecordID?
-    var userRef: CKReference?
+    var cloudKitRecordID: CKRecord.ID?
+    var userRef: CKRecord.Reference?
     
-    init(user: User?, headline: String, url: String, gpsLatitude: Double, gpsLongitude: Double, comments: [Comment] = [], likes: [Like] = [], timeStamp: Date = Date(), userRef: CKReference?) {
+    init(user: User?, headline: String, url: String, gpsLatitude: Double, gpsLongitude: Double, comments: [Comment] = [], likes: [Like] = [], timeStamp: Date = Date(), userRef: CKRecord.Reference?) {
         
         self.user = user
         self.headline = headline
@@ -66,7 +66,7 @@ class Post: NSObject, MKAnnotation {
             let timeStamp = cloudKitRecord.creationDate,
             let gpsLatitude = cloudKitRecord[gpsLatitudeKey] as? Double,
             let gpsLongitude = cloudKitRecord[gpsLongitudeKey] as? Double,
-            let userRef = cloudKitRecord[userRefKey] as? CKReference else { return nil }
+            let userRef = cloudKitRecord[userRefKey] as? CKRecord.Reference else { return nil }
         
         self.url = url
         self.headline = headline
@@ -81,7 +81,7 @@ class Post: NSObject, MKAnnotation {
     }
     
     var cloudKitRecord: CKRecord {
-        let recordID = cloudKitRecordID ?? CKRecordID(recordName: UUID().uuidString)
+        let recordID = cloudKitRecordID ?? CKRecord.ID(recordName: UUID().uuidString)
         let record = CKRecord(recordType: Post.typeKey, recordID: recordID)
         record.setValue(url, forKey: urlKey)
         record.setValue(headline, forKey: headlineKey)
@@ -91,7 +91,7 @@ class Post: NSObject, MKAnnotation {
         
         if let user = user,
             let userRecordID = user.cloudKitRecordID {
-            let userReference = CKReference(recordID: userRecordID, action: .deleteSelf)
+            let userReference = CKRecord.Reference(recordID: userRecordID, action: .deleteSelf)
             record.setValue(userReference, forKey: userRefKey)
         } else {
             record.setValue(userRef, forKey: userRefKey)

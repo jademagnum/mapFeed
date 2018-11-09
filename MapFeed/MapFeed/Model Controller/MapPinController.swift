@@ -26,7 +26,7 @@ class MapPinController {
     
     func createMapPinWithMediaData(user: User, gpsLatitude: Double, gpsLongitude: Double, timestamp: Date = Date(), mediaData: Data, completion: @escaping ((MapPin?) -> Void)){
         guard let userID = user.cloudKitRecordID else { return }
-        let userRef = CKReference(recordID: userID, action: .deleteSelf)
+        let userRef = CKRecord.Reference(recordID: userID, action: .deleteSelf)
         
         let mapPin = MapPin(user: user, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, reference: userRef, timestamp: timestamp, mediaData: mediaData)
         mapPins.append(mapPin)
@@ -58,7 +58,7 @@ class MapPinController {
 //        }
 //    }
     
-    func fetchMapPinWithCKRecord(cKRecord: CKRecordID ,completion: @escaping (MapPin?) -> Void) {
+    func fetchMapPinWithCKRecord(cKRecord: CKRecord.ID ,completion: @escaping (MapPin?) -> Void) {
         cloudKitManager.fetchRecord(withID: cKRecord) { (record, error) in
             guard let record = record else { completion(nil); return }
             let mapPin = MapPin(cloudKitRecord: record, user: nil)

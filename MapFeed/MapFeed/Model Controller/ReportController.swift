@@ -22,7 +22,7 @@ class ReportController {
     
     func createReportWith(post: Post?, mapPin: MapPin?, reportedFor: String, completion: @escaping ((Report?) -> Void)) {
         
-        var mediaIDToReport: CKRecordID!
+        var mediaIDToReport: CKRecord.ID!
         
         if post != nil {
             guard let mediaID = post?.cloudKitRecordID else { completion(nil); return }
@@ -34,7 +34,7 @@ class ReportController {
         
         guard let mediaID = mediaIDToReport else { completion(nil); return }
         
-        let mediaRef = CKReference(recordID: mediaID, action: .deleteSelf)
+        let mediaRef = CKRecord.Reference(recordID: mediaID, action: .deleteSelf)
         
         let report = Report(post: post, mapPin: mapPin, reportedFor: reportedFor, mediaRef: mediaRef)
         reports.append(report)

@@ -39,7 +39,6 @@ class HomeFeedViewController: UIViewController, UITableViewDelegate, UITableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "homeFeedTableViewCell", for: indexPath) as? HomeFeedTableViewCell else { return UITableViewCell() }
         
         let user = UserController.shared.users[indexPath.row]
-        
         cell.user = user
         cell.delegate = self
         return cell

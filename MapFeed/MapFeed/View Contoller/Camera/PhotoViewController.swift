@@ -33,19 +33,19 @@ class PhotoViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.gray
         let backgroundImageView = UIImageView(frame: view.frame)
-        backgroundImageView.contentMode = UIViewContentMode.scaleAspectFit
+        backgroundImageView.contentMode = UIView.ContentMode.scaleAspectFit
         backgroundImageView.image = backgroundImage
         view.addSubview(backgroundImageView)
         
         let cancelButton = UIButton(frame: CGRect(x: 20.0, y: 20.0, width: 30.0, height: 30.0))
-        cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControlState())
-        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControl.State())
+        cancelButton.addTarget(self, action: #selector(cancel), for: UIControl.Event.touchUpInside)
         view.addSubview(cancelButton)
         
         let viewSize = self.view.frame.size
         let addMapPostButton = UIButton(frame: CGRect(x: ((viewSize.width)-50), y: 20, width: 30, height: 30))
-        addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControlState())
-        addMapPostButton.addTarget(self, action: #selector(addMapPost), for: .touchUpInside)
+        addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControl.State())
+        addMapPostButton.addTarget(self, action: #selector(addMapPost), for: UIControl.Event.touchUpInside)
         view.addSubview(addMapPostButton)
         
         locationManager.delegate = self
@@ -62,7 +62,7 @@ class PhotoViewController: UIViewController, CLLocationManagerDelegate {
         guard let currentUser = UserController.shared.currentUser,
         let gpsLatitude =  locationManager.location?.coordinate.latitude,
         let gpsLongitude = locationManager.location?.coordinate.longitude,
-        let photoData = UIImageJPEGRepresentation(backgroundImage, 0.8) else { return }
+        let photoData = backgroundImage.jpegData(compressionQuality: 0.8) else { return }
         
         
         MapPinController.shared.createMapPinWithMediaData(user: currentUser, gpsLatitude: gpsLatitude, gpsLongitude: gpsLongitude, mediaData: photoData) { (mapPin) in

@@ -18,8 +18,8 @@ class ReportViewController: UIViewController {
         super.viewDidLoad()
         
         let cancelButton = UIButton(frame: CGRect(x: 10.0, y: 10.0, width: 30.0, height: 30.0))
-        cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControlState())
-        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControl.State())
+        cancelButton.addTarget(self, action: #selector(cancel), for: UIControl.Event.touchUpInside)
         view.addSubview(cancelButton)
         
     }

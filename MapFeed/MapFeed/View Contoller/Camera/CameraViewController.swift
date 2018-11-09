@@ -126,11 +126,11 @@ extension CameraViewController {
         focusView.alpha = 0.0
         view.addSubview(focusView)
         
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
             focusView.alpha = 1.0
             focusView.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
         }) { (success) in
-            UIView.animate(withDuration: 0.15, delay: 0.5, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.15, delay: 0.5, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 focusView.alpha = 0.0
                 focusView.transform = CGAffineTransform(translationX: 0.6, y: 0.6)
             }) { (success) in
@@ -141,9 +141,9 @@ extension CameraViewController {
     
     fileprivate func toggleFlashAnimation() {
         if flashEnabled == true {
-            flashButton.setImage(#imageLiteral(resourceName: "flash"), for: UIControlState())
+            flashButton.setImage(#imageLiteral(resourceName: "flash"), for: UIControl.State())
         } else {
-            flashButton.setImage(#imageLiteral(resourceName: "flashOutline"), for: UIControlState())
+            flashButton.setImage(#imageLiteral(resourceName: "flashOutline"), for: UIControl.State())
         }
     }
     

@@ -48,19 +48,19 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
                 DispatchQueue.main.async {
                     self.view.backgroundColor = UIColor.gray
                     let backgroundImageView = UIImageView(frame: self.view.frame)
-                    backgroundImageView.contentMode = UIViewContentMode.scaleAspectFit
+                    backgroundImageView.contentMode = UIView.ContentMode.scaleAspectFit
                     backgroundImageView.image = image
                     self.view.addSubview(backgroundImageView)
                     
                     let cancelButton = UIButton(frame: CGRect(x: 10.0, y: 10.0, width: 30.0, height: 30.0))
-                    cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControlState())
-                    cancelButton.addTarget(self, action: #selector(self.cancel), for: .touchUpInside)
+                    cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControl.State())
+                    cancelButton.addTarget(self, action: #selector(self.cancel), for: UIControl.Event.touchUpInside)
                     self.view.addSubview(cancelButton)
                     
                     let viewSize = self.view.frame.size
                     let addMapPostButton = UIButton(frame: CGRect(x: ((viewSize.width)-50), y: 20, width: 30, height: 30))
-                    addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControlState())
-                    addMapPostButton.addTarget(self, action: #selector(self.report), for: .touchUpInside)
+                    addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControl.State())
+                    addMapPostButton.addTarget(self, action: #selector(self.report), for: UIControl.Event.touchUpInside)
                     self.view.addSubview(addMapPostButton)
                 }
             } else {
@@ -88,23 +88,23 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
                     self.playerController?.showsPlaybackControls = false
                     
                     self.playerController?.player = self.player
-                    self.addChildViewController(self.playerController!)
+                    self.addChild(self.playerController!)
                     self.view.addSubview(self.playerController!.view)
                     self.playerController?.view.frame = self.view.frame
                     let cancelButton = UIButton(frame: CGRect(x: 10.0, y: 10.0, width: 30.0, height: 30.0))
-                    cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControlState())
-                    cancelButton.addTarget(self, action: #selector(self.cancel), for: .touchUpInside)
+                    cancelButton.setImage(#imageLiteral(resourceName: "cancel"), for: UIControl.State())
+                    cancelButton.addTarget(self, action: #selector(self.cancel), for: UIControl.Event.touchUpInside)
                     self.view.addSubview(cancelButton)
                     
                     let viewSize = self.view.frame.size
                     let addMapPostButton = UIButton(frame: CGRect(x: ((viewSize.width)-50), y: 20, width: 30, height: 30))
-                    addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControlState())
-                    addMapPostButton.addTarget(self, action: #selector(self.report), for: .touchUpInside)
+                    addMapPostButton.setImage(#imageLiteral(resourceName: "focus"), for: UIControl.State())
+                    addMapPostButton.addTarget(self, action: #selector(self.report), for: UIControl.Event.touchUpInside)
                     self.view.addSubview(addMapPostButton)
                     
                     // Allow background audio to continue to play
                     do {
-                        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+                        try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)), mode: AVAudioSession.Mode.default)
                     } catch let error as NSError {
                         print(error)
                     }
@@ -137,7 +137,7 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
             
             guard let mapPin = self.mapPin else { return }
             
-            let userToBlockRef = CKReference(recordID: mapPin.reference.recordID, action: .none)
+            let userToBlockRef = CKRecord.Reference(recordID: mapPin.reference.recordID, action: .none)
             
             UserController.shared.userToBlock(blockUserRef: userToBlockRef, completion: { (success) in
                 
@@ -169,7 +169,7 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
     
     @objc fileprivate func playerItemDidReachEnd(_ notification: Notification) {
         if self.player != nil {
-            self.player?.seek(to: kCMTimeZero)
+            self.player?.seek(to: CMTime.zero)
             self.player?.play()
         }
     }
@@ -206,3 +206,8 @@ class MediaViewerViewController: UIViewController, CLLocationManagerDelegate {
 
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
