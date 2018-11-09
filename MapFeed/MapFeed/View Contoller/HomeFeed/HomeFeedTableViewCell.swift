@@ -17,10 +17,6 @@ class HomeFeedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
     @IBOutlet private weak var homeFeedCollectionView: UICollectionView!
     @IBOutlet weak var usernameLabel: UILabel!
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
     weak var delegate: CollectionViewCellDelegate?
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -36,6 +32,11 @@ class HomeFeedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
 
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        homeFeedCollectionView.reloadData()
     }
     
     func setupViews() {
